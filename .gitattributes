@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary
+
+# Saved third-party pages used as test fixtures: keep them out of GitHub language stats.
+tests/fixtures/** linguist-vendored

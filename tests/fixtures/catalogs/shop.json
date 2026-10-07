@@ -1,0 +1,45 @@
+{
+  "business": {
+    "id": "edge-skate-shop",
+    "name": "Edge Skate Shop",
+    "brand_names": ["Edge", "Edge Skate Shop"],
+    "description": "Online shop for figure skating equipment.",
+    "website": "https://edge-skate.example.com",
+    "timezone": "America/New_York"
+  },
+  "offerings": [
+    {
+      "id": "off-ice-spinner",
+      "business_id": "edge-skate-shop",
+      "kind": "product",
+      "name": "Off-Ice Spinner Board",
+      "summary": "Spinner board for practising rotations off the ice.",
+      "delivery": "shipped",
+      "audience": {"goals": ["off-ice spinner", "spin training"]},
+      "schedule": null,
+      "enrollment": {"mode": "purchase"},
+      "offers": [
+        {
+          "id": "black",
+          "name": "Spinner Board, black",
+          "price": {"amount": "24.99", "currency": "USD"},
+          "list_price": {"amount": "29.99", "currency": "USD"},
+          "unit": "item",
+          "checkout": {"method": "cart", "url": "https://edge-skate.example.com/cart/4512:1"}
+        },
+        {
+          "id": "pink",
+          "name": "Spinner Board, pink",
+          "price": {"amount": "24.99", "currency": "USD"},
+          "unit": "item",
+          "checkout": {"method": "cart", "url": "https://edge-skate.example.com/cart/4513:1"}
+        }
+      ],
+      "provenance": {
+        "source_url": "https://edge-skate.example.com/products/off-ice-spinner",
+        "platform": "shopify",
+        "fetched_at": "2026-10-07T12:00:00Z"
+      }
+    }
+  ]
+}

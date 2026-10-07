@@ -1,0 +1,9 @@
+{
+  "business_id": "victory-skating",
+  "platform": "tilda",
+  "pages": [
+    {"url": "https://victoryskating.com/doublejumps", "offering_id": "double-jumps-club"},
+    {"url": "https://victoryskating.com/doubleaxel", "offering_id": "double-axel-club"},
+    {"url": "https://victoryskating.com/triplejumps", "offering_id": "triple-jumps-club"}
+  ]
+}

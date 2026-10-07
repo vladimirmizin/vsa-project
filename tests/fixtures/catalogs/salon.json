@@ -1,0 +1,38 @@
+{
+  "business": {
+    "id": "bloom-hair-studio",
+    "name": "Bloom Hair Studio",
+    "brand_names": ["Bloom", "Bloom Hair Studio"],
+    "description": "Hair salon in central London.",
+    "website": "https://bloom-hair.example.com",
+    "timezone": "Europe/London"
+  },
+  "offerings": [
+    {
+      "id": "balayage",
+      "business_id": "bloom-hair-studio",
+      "kind": "service",
+      "name": "Balayage",
+      "summary": "Hand-painted highlights, about 3 hours, from 180 GBP.",
+      "delivery": "in_person",
+      "audience": {"goals": ["balayage", "highlights", "hair colour"]},
+      "staff": [{"name": "Sam", "role": "Senior colourist", "weekdays": [1, 2, 3, 4, 5]}],
+      "schedule": null,
+      "enrollment": {"mode": "appointment"},
+      "offers": [
+        {
+          "id": "standard",
+          "name": "Balayage, medium length",
+          "price": {"amount": "180.00", "currency": "GBP"},
+          "unit": "session",
+          "checkout": {"method": "booking_page", "url": "https://www.fresha.com/book-now/bloom-hair-studio"}
+        }
+      ],
+      "provenance": {
+        "source_url": "https://www.fresha.com/a/bloom-hair-studio",
+        "platform": "fresha",
+        "fetched_at": "2026-10-07T12:00:00Z"
+      }
+    }
+  ]
+}

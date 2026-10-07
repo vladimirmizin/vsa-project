@@ -1,0 +1,339 @@
+{
+  "business": {
+    "id": "victory-skating",
+    "name": "Victory Skating Academy",
+    "brand_names": ["Victory Skating", "VSA", "Victory Skating Academy", "VSA World"],
+    "description": "Online figure skating academy. Live online off-ice group classes for double jumps, the Double Axel and triple jumps, plus private lessons booked through the VSA app.",
+    "website": "https://victoryskating.com",
+    "contact_email": "info@vsaworld.com",
+    "timezone": "America/Los_Angeles",
+    "links": {
+      "programs": "https://vsaworld.online/programs/",
+      "app": "https://vsaworld.com/download/",
+      "instagram_vsaworld": "https://www.instagram.com/vsaworld",
+      "instagram_vsafigureskating": "https://www.instagram.com/vsafigureskating/",
+      "terms_of_service": "https://vsaworld.com/terms-of-service/",
+      "privacy_policy": "https://vsaworld.com/privacy-policy/",
+      "disclaimer": "https://vsaworld.com/disclaimer/"
+    }
+  },
+  "offerings": [
+    {
+      "id": "double-jumps-club",
+      "business_id": "victory-skating",
+      "kind": "course",
+      "name": "6-Month Double Jumps Club",
+      "summary": "Level 2 online off-ice group training for skaters moving to double jumps (double salchow, toe loop, loop, flip and lutz): two live 45-minute classes every Saturday and Sunday, 48 classes over 6 months, $299.",
+      "description": "Live online group classes that take skaters from single to double jumps off-ice. Covers take-off and landing technique, rotation control, off-ice conditioning (strength, flexibility, plyometrics) and injury prevention, with drills that progress in difficulty as technique improves.",
+      "delivery": "online",
+      "platform": null,
+      "audience": {
+        "level": "Level 2",
+        "level_rank": 2,
+        "prerequisites": [],
+        "goals": ["double jumps", "double salchow", "double toe loop", "double loop", "double flip", "double lutz", "jump height", "rotation control"]
+      },
+      "curriculum": [
+        {"title": "Introduction to Double Jumps", "points": ["Double Salchow", "Double Toe Loop", "Double Loop, Flip and Lutz"]},
+        {"title": "Core Techniques", "points": ["Take-off technique", "Landing technique", "Rotation control and air position"]},
+        {"title": "Off-Ice Conditioning", "points": ["Leg strength and core stability", "Flexibility", "Plyometric drills"]},
+        {"title": "Safety and Injury Prevention", "points": ["Warm-ups and cool-downs", "Ankle and knee strengthening"]},
+        {"title": "Progression", "points": ["From basic drills to more complex ones as technique improves"]}
+      ],
+      "inclusions": [
+        "2 live group classes every Saturday and Sunday",
+        "48 live group classes over 6 months",
+        "Free 4-day training plan",
+        "$5 discount on your next private class",
+        "2 free group-class passes for friends or relatives",
+        "Structured progression for 6 months",
+        "Confirmation email right after enrollment",
+        "Session links and details within 24 hours"
+      ],
+      "requirements": ["Sneakers", "Jump rope", "Off-ice spinner", "Stable internet connection", "Some space to train"],
+      "highlights": [
+        "2x faster double jumps mastery with our proven off-ice method",
+        "Students improved jump height by 22% and rotation control by 31% in 2 months",
+        "After completing the club you are invited to Double Axel Club for the same flat fee"
+      ],
+      "staff": [
+        {"name": "Coach Diana", "role": "Coach", "weekdays": [5], "bio": "American figure skating coach with international experience across the U.S., UK, Hong Kong, Germany and Poland. USFS-compliant for 2025/26, UK Level 2 Coach Certification, previously toured with Disney on Ice and Ice Capades."},
+        {"name": "Coach Marta", "role": "Coach", "weekdays": [6], "bio": "Figure skating coach with international experience as a skater and a coach. Trained at MKS Axel Toruń in Poland and with Team Mayer-Virtanen in Finland. Degree in Physical Education."}
+      ],
+      "schedule": {
+        "weekdays": [5, 6],
+        "start_time": "08:00",
+        "duration_minutes": 45,
+        "timezone": "America/Los_Angeles",
+        "display_timezones": ["America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York", "Europe/London", "Europe/Berlin", "Asia/Kuwait"]
+      },
+      "enrollment": {
+        "mode": "cohort",
+        "cohort_start_dates": ["2026-10-10"],
+        "access_lead_time_hours": 24
+      },
+      "offers": [
+        {
+          "id": "six-month-package",
+          "name": "6-Month Package",
+          "price": {"amount": "299.00", "currency": "USD"},
+          "list_price": {"amount": "699.00", "currency": "USD"},
+          "unit": "package",
+          "duration_months": 6,
+          "sessions_included": 48,
+          "checkout": {
+            "method": "payment_link",
+            "url": "https://buy.stripe.com/fZubJ16anape0P0eRhdMM1L",
+            "label": "Register Now",
+            "reference_param": "client_reference_id"
+          }
+        }
+      ],
+      "related": [
+        {"offering_id": "double-axel-club", "relation": "next_step", "note": "Invitation to Double Axel Club for the same flat fee after completion."}
+      ],
+      "provenance": {
+        "source_url": "https://victoryskating.com/doublejumps",
+        "platform": "tilda",
+        "fetched_at": "2026-10-07T12:00:00Z",
+        "advertised": {
+          "start_date": "Join us on October 10",
+          "price_per_class": "$6 / Class",
+          "schedule": "8 - 8.45 am PDT / 9 - 9.45 am MDT / 10 - 10.45 am CDT / 11 - 11.45 am EDT / 4 - 4.45 pm UK time / 5 - 5.45 pm CEST (Germany) / 6 - 6.45 pm GMT+3 (Kuwait)"
+        },
+        "conflicts": [
+          "Page says 'Join us on October 10' and also 'Get started this weekend'.",
+          "Page prices a '6-Month Package' at $299/6 months but 'How It Works' mentions purchasing a 'monthly subscription'.",
+          "The year of 'October 10' is not stated; 2026 is assumed (10 October 2026 is a Saturday)."
+        ]
+      }
+    },
+    {
+      "id": "double-axel-club",
+      "business_id": "victory-skating",
+      "kind": "course",
+      "name": "6-Month Double Axel Club",
+      "summary": "Level 3 online off-ice group training for skaters who already land double jumps off-ice and want to master the Double Axel: two live 45-minute classes with Coach Marta every Saturday and Sunday, 48 classes over 6 months, $299.",
+      "description": "Live online group classes focused on the Double Axel off-ice: approach and set-up, generating rotation and height, precise landings, plyometric and bounding drills for take-off power, core strength for a stable rotation axis, and double-revolution drills for muscle memory. Drills progress in difficulty and lead into triple jumps.",
+      "delivery": "online",
+      "platform": null,
+      "audience": {
+        "level": "Level 3",
+        "level_rank": 3,
+        "prerequisites": ["Proficiency in double jumps off-ice"],
+        "goals": ["double axel", "2axel", "axel", "jump rotation", "jump height", "take-off power", "landing", "prepare for triple jumps"]
+      },
+      "curriculum": [
+        {"title": "Technique Development", "points": ["Correct approach and set-up", "Generating rotation and height for the double axel", "Precise landings for stability and injury prevention"]},
+        {"title": "Power and Explosiveness", "points": ["Plyometric training for take-off strength", "Bounding drills", "Core strengthening to stabilise the rotation axis"]},
+        {"title": "Rotational Speed", "points": ["Off-ice spins for rotational control and speed", "Double-revolution drills for muscle memory"]},
+        {"title": "Progression", "points": ["From basic drills to more complex ones", "Transition into harder double jumps and triple jumps"]}
+      ],
+      "inclusions": [
+        "2 live group classes every Saturday and Sunday",
+        "48 live group classes over 6 months",
+        "Free 4-day 2Axel Workbook",
+        "$5 discount on your next private class",
+        "2 free group-class passes for friends or relatives",
+        "Structured progression for 6 months",
+        "Confirmation email right after enrollment",
+        "Session links and details within 24 hours"
+      ],
+      "requirements": ["Sneakers", "Jump rope", "Off-ice spinner", "Stable internet connection", "Some space to train"],
+      "highlights": [
+        "Over 800 skaters reached their 2Axel, many in under 12 weeks",
+        "After completing the club you are invited to Triple Jumps Club for the same flat fee",
+        "Free Double Axel workshop video by Coach Helen available on the page"
+      ],
+      "staff": [
+        {"name": "Coach Marta", "role": "Coach", "weekdays": [5, 6], "bio": "Figure skating coach with international experience as a skater and a coach. Trained at MKS Axel Toruń in Poland and with Team Mayer-Virtanen in Finland. Degree in Physical Education."}
+      ],
+      "schedule": {
+        "weekdays": [5, 6],
+        "start_time": "07:00",
+        "duration_minutes": 45,
+        "timezone": "America/Los_Angeles",
+        "display_timezones": ["America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York", "Europe/London", "Europe/Berlin", "Asia/Bangkok"]
+      },
+      "enrollment": {
+        "mode": "cohort",
+        "cohort_start_dates": ["2026-10-10"],
+        "access_lead_time_hours": 24
+      },
+      "offers": [
+        {
+          "id": "six-month-package",
+          "name": "6-Month Package",
+          "price": {"amount": "299.00", "currency": "USD"},
+          "list_price": {"amount": "699.00", "currency": "USD"},
+          "unit": "package",
+          "duration_months": 6,
+          "sessions_included": 48,
+          "checkout": {
+            "method": "payment_link",
+            "url": "https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M",
+            "label": "Register Now",
+            "reference_param": "client_reference_id"
+          }
+        }
+      ],
+      "related": [
+        {"offering_id": "double-jumps-club", "relation": "prerequisite", "note": "For skaters not yet confident with double jumps off-ice."},
+        {"offering_id": "triple-jumps-club", "relation": "next_step", "note": "Invitation to Triple Jumps Club for the same flat fee after completion."},
+        {"offering_id": "private-lesson-marta", "relation": "add_on", "note": "One-to-one classes with the same coach, booked in the VSA app."}
+      ],
+      "provenance": {
+        "source_url": "https://victoryskating.com/doubleaxel",
+        "platform": "tilda",
+        "fetched_at": "2026-10-07T12:00:00Z",
+        "advertised": {
+          "start_date": "Join us on October 10",
+          "price_per_class": "$6 / Class",
+          "schedule": "7 - 7.45 am PDT / 8 - 8.45 am MDT / 9 - 9.45 am CDT / 10 - 10.45 am EDT / 3 - 3.45 pm UK time / 4 - 4.45 pm CEST (Germany) / 9 - 9.45 PM (ICT)"
+        },
+        "conflicts": [
+          "Page says 'Join us on October 10' and also 'Get started this weekend'.",
+          "Page prices a '6-Month Package' at $299/6 months but 'How It Works' mentions purchasing a 'monthly subscription'.",
+          "The year of 'October 10' is not stated; 2026 is assumed (10 October 2026 is a Saturday)."
+        ]
+      }
+    },
+    {
+      "id": "triple-jumps-club",
+      "business_id": "victory-skating",
+      "kind": "course",
+      "name": "6-Month Triple Jumps Club",
+      "summary": "Level 4 online off-ice group training for skaters who are proficient in triple jumps off-ice and want to land them: two live 45-minute classes every Saturday and Sunday, 48 classes over 6 months, $299.",
+      "description": "Live online group classes on triple jumps off-ice (triple salchow, toe loop, loop, flip and lutz): take-off edges and mechanics, plyometric and bounding drills, core strength, off-ice spins and triple-revolution drills, progressing in difficulty.",
+      "delivery": "online",
+      "platform": null,
+      "audience": {
+        "level": "Level 4",
+        "level_rank": 4,
+        "prerequisites": ["Proficiency in triple jumps off-ice"],
+        "goals": ["triple jumps", "triple salchow", "triple toe loop", "triple loop", "triple flip", "triple lutz"]
+      },
+      "curriculum": [
+        {"title": "Introduction to Triple Jumps", "points": ["Triple Salchow", "Triple Toe Loop", "Triple Loop, Flip and Lutz"]},
+        {"title": "Power and Explosiveness", "points": ["Plyometric training for take-off strength", "Bounding drills", "Core strengthening to stabilise the rotation axis"]},
+        {"title": "Rotational Speed", "points": ["Off-ice spins for rotational control and speed", "Triple-revolution drills for muscle memory"]},
+        {"title": "Progression", "points": ["From basic drills to more complex ones as technique improves"]}
+      ],
+      "inclusions": [
+        "2 live group classes every Saturday and Sunday",
+        "48 live group classes over 6 months",
+        "Free 4-day training plan",
+        "$5 discount on your next private class",
+        "2 free group-class passes for friends or relatives",
+        "Structured progression for 6 months",
+        "Confirmation email right after enrollment",
+        "Session links and details within 24 hours"
+      ],
+      "requirements": ["Sneakers", "Jump rope", "Off-ice spinner", "Stable internet connection", "Some space to train"],
+      "highlights": [
+        "Skaters training 2x/week are 65% more likely to land triple jumps clean",
+        "Triple jumps success rate rises to 82% with targeted off-ice technique"
+      ],
+      "staff": [
+        {"name": "Coach Alice", "role": "Coach", "weekdays": [5], "bio": "Figure skating coach and third-category judge in single skating. Specialises in multi-rotational jumping technique, program creation and Level 4 spins."},
+        {"name": "Coach Lena", "role": "Coach", "weekdays": [6], "bio": "22 years of coaching experience; nearly 5 years with the Imperial Ice Stars. Trained under Olympic Champion Robin Cousins and completed an ISU seminar on current judging rules."}
+      ],
+      "schedule": {
+        "weekdays": [5, 6],
+        "start_time": "07:00",
+        "duration_minutes": 45,
+        "timezone": "America/Los_Angeles",
+        "display_timezones": ["America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York", "Europe/London", "Europe/Berlin", "Asia/Bangkok"]
+      },
+      "enrollment": {
+        "mode": "cohort",
+        "cohort_start_dates": ["2026-10-10"],
+        "access_lead_time_hours": 24
+      },
+      "offers": [
+        {
+          "id": "six-month-package",
+          "name": "6-Month Package",
+          "price": {"amount": "299.00", "currency": "USD"},
+          "list_price": {"amount": "699.00", "currency": "USD"},
+          "unit": "package",
+          "duration_months": 6,
+          "sessions_included": 48,
+          "checkout": {
+            "method": "payment_link",
+            "url": "https://buy.stripe.com/aFa8wP9mz54UbtEgZpdMM1t",
+            "label": "Register Now",
+            "reference_param": "client_reference_id"
+          }
+        }
+      ],
+      "related": [
+        {"offering_id": "double-axel-club", "relation": "prerequisite", "note": "For skaters still working on the Double Axel."}
+      ],
+      "provenance": {
+        "source_url": "https://victoryskating.com/triplejumps",
+        "platform": "tilda",
+        "fetched_at": "2026-10-07T12:00:00Z",
+        "advertised": {
+          "start_date": "Join us on October 10",
+          "price_per_class": "$6 / Class",
+          "schedule": "7 - 7.45 am PDT / 8 - 8.45 am MDT / 9 - 9.45 am CDT / 10 - 10.45 am EDT / 3 - 3.45 pm UK time / 4 - 4.45 pm CEST (Germany) / 9 - 9.45 PM (ICT)"
+        },
+        "conflicts": [
+          "Page says 'Join us on October 10' and also 'Get started this weekend'.",
+          "Page prices a '6-Month Package' at $299/6 months but 'How It Works' mentions purchasing a 'monthly subscription'.",
+          "The year of 'October 10' is not stated; 2026 is assumed (10 October 2026 is a Saturday)."
+        ]
+      }
+    },
+    {
+      "id": "private-lesson-marta",
+      "business_id": "victory-skating",
+      "kind": "service",
+      "name": "Private lesson with Coach Marta",
+      "summary": "One-to-one online class with Coach Marta at $60 per hour, booked in the VSA app.",
+      "description": "Individual coaching with the Double Axel Club coach. Booked through the VSA app; Double Axel Club members get a $5 discount on their next private class.",
+      "delivery": "online",
+      "platform": null,
+      "audience": {
+        "level": null,
+        "level_rank": null,
+        "prerequisites": [],
+        "goals": ["private lesson", "one-to-one coaching", "double axel"]
+      },
+      "staff": [
+        {"name": "Coach Marta", "role": "Coach", "weekdays": [], "bio": "Figure skating coach with international experience as a skater and a coach. Trained at MKS Axel Toruń in Poland and with Team Mayer-Virtanen in Finland. Degree in Physical Education."}
+      ],
+      "schedule": null,
+      "enrollment": {
+        "mode": "appointment",
+        "access_lead_time_hours": 0
+      },
+      "offers": [
+        {
+          "id": "hourly",
+          "name": "Private lesson, per hour",
+          "price": {"amount": "60.00", "currency": "USD"},
+          "unit": "hour",
+          "checkout": {
+            "method": "in_app",
+            "url": "https://vsaworld.com/download/",
+            "label": "Install the VSA app"
+          }
+        }
+      ],
+      "related": [
+        {"offering_id": "double-axel-club", "relation": "add_on"}
+      ],
+      "provenance": {
+        "source_url": "https://victoryskating.com/doubleaxel",
+        "platform": "tilda",
+        "fetched_at": "2026-10-07T12:00:00Z",
+        "advertised": {
+          "price": "Coach Marta ($60/hour)",
+          "booking": "If you want private double axel classes, install VSA app now"
+        }
+      }
+    }
+  ]
+}

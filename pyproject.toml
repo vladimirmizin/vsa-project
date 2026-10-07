@@ -1,0 +1,70 @@
+[project]
+name = "vsa-commerce"
+version = "0.1.0"
+description = "AI commerce layer: makes an existing business discoverable and purchasable by AI assistants"
+readme = "README.md"
+authors = [
+    { name = "Vladimir Mizin", email = "vladimir.mizin1@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "email-validator>=2.3.0",
+    "fastmcp>=4.0.11",
+    "httpx>=0.28.1",
+    "pydantic>=2.13.5",
+    "tzdata>=2026.5",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.10",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["vsa_commerce"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "\\.\\.\\.$"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "B", "UP", "SIM", "C4", "RUF", "PT", "DTZ", "PL", "TID", "N", "S",
+]
+ignore = [
+    "PLR2004",  # magic values in comparisons are fine in a domain this small
+    "PLR0913",  # keyword-only arguments make long signatures readable
+    "RUF001",   # the catalog legitimately contains non-ASCII text (Toruń)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR0915", "PLC0415"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+packages = ["vsa_commerce"]

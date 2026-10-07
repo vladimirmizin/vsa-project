@@ -1,0 +1,23 @@
+{
+  "business_id": "victory-skating",
+  "rules": [
+    {
+      "applies_to": ["double-axel-club"],
+      "set": {
+        "enrollment.mode": "rolling",
+        "enrollment.cohort_start_dates": []
+      },
+      "reason": "Recurring program that runs every weekend. The start date on the landing page is not a limitation; customers can join at any time and start at the next session.",
+      "authority": "Victoria (VSA), assignment brief, 2026-10-07"
+    },
+    {
+      "applies_to": ["double-jumps-club", "triple-jumps-club"],
+      "set": {
+        "enrollment.mode": "rolling",
+        "enrollment.cohort_start_dates": []
+      },
+      "reason": "Same weekend format and the same 'Join us on October 10' banner as Double Axel Club, so treated as recurring too.",
+      "authority": "Assumption by the integrator, pending owner confirmation"
+    }
+  ]
+}
