@@ -11,6 +11,8 @@ import pytest
 from tests.support.paths import DATA_DIR, NOW
 from vsa_commerce.catalog.store import CatalogStore
 from vsa_commerce.domain.models import Catalog
+from vsa_commerce.tools import CallContext, CommerceTools
+from vsa_commerce.tracking import InMemoryEventLog
 
 
 @pytest.fixture
@@ -32,6 +34,21 @@ def tmp_store(tmp_path: Path) -> CatalogStore:
 @pytest.fixture
 def vsa(store: CatalogStore) -> Catalog:
     return store.load("victory-skating")
+
+
+@pytest.fixture
+def events() -> InMemoryEventLog:
+    return InMemoryEventLog()
+
+
+@pytest.fixture
+def tools(store: CatalogStore, events: InMemoryEventLog, now: datetime) -> CommerceTools:
+    return CommerceTools(store, "victory-skating", events=events, clock=lambda: now)
+
+
+@pytest.fixture
+def ctx() -> CallContext:
+    return CallContext(session_id="session-1", channel="test")
 
 
 @pytest.fixture

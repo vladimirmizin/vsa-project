@@ -16,12 +16,21 @@ from vsa_commerce.domain.models.offering import (
     RelationKind,
     StaffMember,
 )
-from vsa_commerce.domain.models.pricing import Checkout, CheckoutMethod, Money, Offer, PriceUnit
+from vsa_commerce.domain.models.pricing import (
+    BillingInterval,
+    Checkout,
+    CheckoutMethod,
+    Money,
+    Offer,
+    PriceUnit,
+    Recurrence,
+)
 from vsa_commerce.domain.models.schedule import EnrollmentMode, EnrollmentPolicy, RecurringSchedule
 
 __all__ = [
     "ADVERTISED_START_KEY",
     "Audience",
+    "BillingInterval",
     "Business",
     "Catalog",
     "Checkout",
@@ -40,6 +49,7 @@ __all__ = [
     "Override",
     "PriceUnit",
     "Provenance",
+    "Recurrence",
     "RecurringSchedule",
     "RelatedOffering",
     "RelationKind",

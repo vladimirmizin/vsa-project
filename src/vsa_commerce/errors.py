@@ -19,3 +19,7 @@ class SourceUnavailableError(VsaCommerceError, RuntimeError):
 
 class ExtractionError(VsaCommerceError, ValueError):
     """The source was read but could not be turned into valid catalog data."""
+
+
+class ToolInputError(VsaCommerceError, ValueError):
+    """Bad input from the assistant. The message is written for the model to correct itself."""

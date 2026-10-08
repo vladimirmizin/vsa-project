@@ -83,3 +83,33 @@ def test_shipped_rules_cover_all_three_clubs(vsa):
         assert offering.provenance.overrides, club
     assert "Victoria" in vsa.get("double-axel-club").provenance.overrides[0].authority
     assert "Assumption" in vsa.get("triple-jumps-club").provenance.overrides[0].authority
+
+
+def test_list_items_are_addressed_by_id(vsa_source_data):
+    rule = OwnerRule(
+        applies_to=["double-axel-club"],
+        set={"offers[six-month-package].refundable": False},
+        reason="r",
+        authority="a",
+    )
+    data = apply_owner_rules(vsa_source_data, _rules(rule))
+    axel = next(o for o in data["offerings"] if o["id"] == "double-axel-club")
+    assert axel["offers"][0]["refundable"] is False
+
+
+def test_unknown_list_item_is_an_error(vsa_source_data):
+    rule = OwnerRule(
+        applies_to=["double-axel-club"], set={"offers[monthly].refundable": False}, reason="r", authority="a"
+    )
+    with pytest.raises(OwnerRuleError, match="no item with id 'monthly' in 'offers'"):
+        apply_owner_rules(vsa_source_data, _rules(rule))
+
+
+def test_checkout_terms_come_from_the_stripe_page(vsa):
+    offer = vsa.get("double-axel-club").offer()
+    assert offer.recurring is not None
+    assert offer.recurring.describe() == "every 6 months"
+    assert offer.recurring.auto_renews is True
+    assert "48 hours" in (offer.recurring.cancellation_policy or "")
+    assert offer.refundable is False
+    assert "Stripe checkout" in vsa.get("double-axel-club").provenance.overrides[-1].authority

@@ -16,6 +16,9 @@ dependencies = [
     "tzdata>=2026.5",
 ]
 
+[project.scripts]
+vsa-mcp = "vsa_commerce.channels.mcp_server:main"
+
 [build-system]
 requires = ["uv_build>=0.12.23,<0.13.0"]
 build-backend = "uv_build"
@@ -32,6 +35,8 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 filterwarnings = ["error"]
 
 [tool.coverage.run]

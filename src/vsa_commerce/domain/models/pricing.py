@@ -24,6 +24,24 @@ class CheckoutMethod(StrEnum):
     CONTACT = "contact"
 
 
+class BillingInterval(StrEnum):
+    DAY = "day"
+    WEEK = "week"
+    MONTH = "month"
+    YEAR = "year"
+
+
+class Recurrence(Model):
+    interval: BillingInterval
+    interval_count: Annotated[int, Field(gt=0)] = 1
+    auto_renews: bool = True
+    cancellation_policy: str | None = None
+
+    def describe(self) -> str:
+        unit = self.interval.value
+        return f"every {unit}" if self.interval_count == 1 else f"every {self.interval_count} {unit}s"
+
+
 class Money(Model):
     amount: Annotated[Decimal, Field(ge=0, decimal_places=2)]
     currency: CurrencyCode = "USD"
@@ -56,6 +74,8 @@ class Offer(Model):
     unit: PriceUnit
     duration_months: Annotated[int, Field(gt=0)] | None = None
     sessions_included: Annotated[int, Field(gt=0)] | None = None
+    recurring: Recurrence | None = Field(default=None, description="Billing cycle; null for a one-time payment.")
+    refundable: bool | None = None
     checkout: Checkout
     terms: list[str] = Field(default_factory=list)
 

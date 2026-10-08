@@ -15,6 +15,7 @@ from vsa_commerce.domain.models import (
     Money,
     OfferingKind,
     PriceUnit,
+    Recurrence,
     RecurringSchedule,
     RelatedOffering,
     Slug,
@@ -32,6 +33,8 @@ class ExtractedOffer(BaseModel):
     unit: PriceUnit
     duration_months: int | None = None
     sessions_included: int | None = None
+    recurring: Recurrence | None = Field(default=None, description="Billing cycle, only if the page states it.")
+    refundable: bool | None = None
     terms: list[str] = Field(default_factory=list)
     checkout_method: CheckoutMethod
     checkout_url: str | None = Field(default=None, description="Must be one of the payment links provided.")

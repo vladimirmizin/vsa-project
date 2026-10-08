@@ -9,6 +9,7 @@ from pydantic import ValidationError
 
 from tests.support.paths import fixture_catalog
 from vsa_commerce.domain.models import (
+    BillingInterval,
     Catalog,
     Checkout,
     CheckoutMethod,
@@ -18,6 +19,7 @@ from vsa_commerce.domain.models import (
     Offer,
     OfferingKind,
     PriceUnit,
+    Recurrence,
     RecurringSchedule,
 )
 
@@ -185,3 +187,19 @@ class TestCatalogIntegrity:
     def test_get_unknown_offer_raises_key_error(self, vsa):
         with pytest.raises(KeyError):
             vsa.get("double-axel-club").offer("monthly")
+
+
+class TestRecurrence:
+    @pytest.mark.parametrize(
+        ("interval", "count", "text"),
+        [("month", 1, "every month"), ("month", 6, "every 6 months"), ("year", 1, "every year")],
+    )
+    def test_describe(self, interval, count, text):
+        assert Recurrence(interval=interval, interval_count=count).describe() == text
+
+    def test_one_time_offer_has_no_recurrence(self):
+        assert _offer().recurring is None
+
+    def test_interval_count_must_be_positive(self):
+        with pytest.raises(ValidationError):
+            Recurrence(interval=BillingInterval.MONTH, interval_count=0)

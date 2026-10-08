@@ -18,6 +18,20 @@
       },
       "reason": "Same weekend format and the same 'Join us on October 10' banner as Double Axel Club, so treated as recurring too.",
       "authority": "Assumption by the integrator, pending owner confirmation"
+    },
+    {
+      "applies_to": ["double-axel-club"],
+      "set": {
+        "offers[six-month-package].recurring": {
+          "interval": "month",
+          "interval_count": 6,
+          "auto_renews": true,
+          "cancellation_policy": "Cancel at least 48 hours before the next payment date via the Subscriptions link in the confirmation email."
+        },
+        "offers[six-month-package].refundable": false
+      },
+      "reason": "The landing page mentions a 'monthly subscription'; the checkout itself bills $299 every 6 months, renews automatically and is non-refundable.",
+      "authority": "Stripe checkout page for the Register Now link, 2026-10-08"
     }
   ]
 }

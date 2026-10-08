@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import re
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -59,14 +60,28 @@ def apply_owner_rules(catalog_data: dict[str, Any], owner_rules: OwnerRules) -> 
     return data
 
 
+_ITEM = re.compile(r"^(?P<key>\w+)\[(?P<id>[^\]]+)\]$")
+
+
 def _set_path(target: dict[str, Any], dotted: str, value: Any) -> None:
+    """``enrollment.mode`` or ``offers[six-month-package].recurring``: list items are addressed by id."""
     *parents, leaf = dotted.split(".")
     node = target
-    for key in parents:
-        child = node.get(key)
-        if child is None:
-            child = node[key] = {}
-        if not isinstance(child, dict):
-            raise OwnerRuleError(f"cannot set {dotted!r}: {key!r} is not an object")
-        node = child
+    for segment in parents:
+        node = _child(node, segment, dotted)
     node[leaf] = value
+
+
+def _child(node: dict[str, Any], segment: str, dotted: str) -> dict[str, Any]:
+    if match := _ITEM.match(segment):
+        items = node.get(match["key"])
+        found = [i for i in items or [] if isinstance(i, dict) and i.get("id") == match["id"]]
+        if not found:
+            raise OwnerRuleError(f"cannot set {dotted!r}: no item with id {match['id']!r} in {match['key']!r}")
+        return found[0]
+    child = node.get(segment)
+    if child is None:
+        child = node[segment] = {}
+    if not isinstance(child, dict):
+        raise OwnerRuleError(f"cannot set {dotted!r}: {segment!r} is not an object")
+    return child
