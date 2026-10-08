@@ -1,27 +1,36 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Any
 
 VOLATILE_SUFFIXES = (".provenance.fetched_at",)
 
-_MISSING = object()
+_MISSING: Any = object()
 
 
-def diff_snapshots(old: dict[str, Any], new: dict[str, Any]) -> list[str]:
+@dataclass(frozen=True, slots=True)
+class Change:
+    path: str
+    before: Any
+    after: Any
+
+    def __str__(self) -> str:
+        if self.before is _MISSING:
+            return f"added {self.path} = {self.after!r}"
+        if self.after is _MISSING:
+            return f"removed {self.path} (was {self.before!r})"
+        return f"changed {self.path}: {self.before!r} -> {self.after!r}"
+
+
+def diff_snapshots(old: dict[str, Any], new: dict[str, Any]) -> list[Change]:
     old_flat, new_flat = flatten(old), flatten(new)
     changes = []
     for path in sorted(old_flat.keys() | new_flat.keys()):
         if path.endswith(VOLATILE_SUFFIXES):
             continue
         before, after = old_flat.get(path, _MISSING), new_flat.get(path, _MISSING)
-        if before == after:
-            continue
-        if before is _MISSING:
-            changes.append(f"added {path} = {after!r}")
-        elif after is _MISSING:
-            changes.append(f"removed {path} (was {before!r})")
-        else:
-            changes.append(f"changed {path}: {before!r} -> {after!r}")
+        if before != after:
+            changes.append(Change(path, before, after))
     return changes
 
 

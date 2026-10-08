@@ -13,7 +13,8 @@ from vsa_commerce.connectors.tilda import TildaConnector
 from vsa_commerce.domain.models import EnrollmentMode
 from vsa_commerce.errors import ExtractionError
 from vsa_commerce.extraction import ExtractedOffering, ExtractionRequest
-from vsa_commerce.sync.refresh import RefreshStatus, refresh_catalog
+from vsa_commerce.sync.diff import Change
+from vsa_commerce.sync.refresh import RefreshStatus, is_critical, refresh_catalog
 
 CONFIG = SourceConfig.model_validate_json((DATA_DIR / "victory-skating" / "source.json").read_text(encoding="utf-8"))
 AXEL_PRICE_PATH = "offerings[double-axel-club].offers[six-month-package].price.amount"
@@ -50,22 +51,42 @@ def test_same_content_is_unchanged(tmp_store, vsa_source_data):
     assert path.read_text(encoding="utf-8") == before
 
 
-def test_price_change_is_detected_and_saved(tmp_store, vsa_source_data):
+def test_price_change_waits_for_review(tmp_store, vsa_source_data):
     report = refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price))
+    assert report.status is RefreshStatus.NEEDS_REVIEW
+    assert report.saved is False
+    assert report.kept_previous_snapshot
+    assert report.needs_review == [f"changed {AXEL_PRICE_PATH}: '299.00' -> '349.00'"]
+    assert _axel_price(tmp_store) == "299.00"
+
+
+def test_approved_price_change_is_published(tmp_store, vsa_source_data):
+    report = refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price), approve=True)
     assert report.status is RefreshStatus.UPDATED
     assert report.saved is True
     assert report.changes == [f"changed {AXEL_PRICE_PATH}: '299.00' -> '349.00'"]
     assert _axel_price(tmp_store) == "349.00"
 
 
+def test_copy_changes_are_published_without_review(tmp_store, vsa_source_data):
+    def reword(offering_id: str, offering: dict[str, Any]) -> None:
+        if offering_id == "double-axel-club":
+            offering["description"] = "New wording from the website."
+
+    report = refresh_catalog(tmp_store, _connector(vsa_source_data, reword))
+    assert report.status is RefreshStatus.UPDATED
+    assert report.needs_review == []
+    assert report.saved is True
+
+
 def test_owner_rules_survive_a_refresh(tmp_store, vsa_source_data):
-    refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price))
+    refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price), approve=True)
     reloaded = CatalogStore(tmp_store.data_dir).load("victory-skating").get("double-axel-club")
     assert reloaded.enrollment.mode is EnrollmentMode.ROLLING
 
 
 def test_dry_run_reports_but_does_not_save(tmp_store, vsa_source_data):
-    report = refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price), dry_run=True)
+    report = refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price), dry_run=True, approve=True)
     assert report.status is RefreshStatus.UPDATED
     assert report.saved is False
     assert _axel_price(tmp_store) == "299.00"
@@ -101,7 +122,7 @@ def test_invalid_catalog_is_rejected(tmp_store, vsa_source_data):
 
 
 def test_offerings_not_produced_by_the_connector_are_kept(tmp_store, vsa_source_data):
-    refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price))
+    refresh_catalog(tmp_store, _connector(vsa_source_data, _raise_axel_price), approve=True)
     ids = [o.id for o in CatalogStore(tmp_store.data_dir).load("victory-skating").offerings]
     assert "private-lesson-marta" in ids
 
@@ -112,9 +133,25 @@ def test_business_must_be_onboarded_first(tmp_path, vsa_source_data):
     assert "onboard" in report.errors[0]
 
 
-@pytest.mark.parametrize("status", [RefreshStatus.SOURCE_UNAVAILABLE, RefreshStatus.REJECTED])
-def test_kept_previous_snapshot_flag(status):
-    from vsa_commerce.sync.refresh import RefreshReport
+@pytest.mark.parametrize(
+    "path",
+    [
+        "offerings[x].offers[pkg].price.amount",
+        "offerings[x].offers[pkg].list_price",
+        "offerings[x].offers[pkg].checkout.url",
+        "offerings[x].offers[pkg].recurring.interval_count",
+        "offerings[x].schedule.start_time",
+        "offerings[x].enrollment.mode",
+        "offerings[new].id",
+    ],
+)
+def test_critical_paths(path):
+    assert is_critical(Change(path, 1, 2))
 
-    assert RefreshReport("b", status).kept_previous_snapshot
-    assert not RefreshReport("b", RefreshStatus.UPDATED).kept_previous_snapshot
+
+@pytest.mark.parametrize(
+    "path",
+    ["offerings[x].description", "offerings[x].staff", "offerings[x].schedule.display_timezones", "business.links"],
+)
+def test_non_critical_paths(path):
+    assert not is_critical(Change(path, 1, 2))

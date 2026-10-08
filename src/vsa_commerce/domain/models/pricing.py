@@ -4,7 +4,7 @@ from decimal import ROUND_HALF_UP, Decimal
 from enum import StrEnum
 from typing import Annotated, Self
 
-from pydantic import Field, HttpUrl, model_validator
+from pydantic import Field, HttpUrl, field_validator, model_validator
 
 from vsa_commerce.domain.models.base import CurrencyCode, Model, NonEmptyStr, Slug
 
@@ -45,6 +45,12 @@ class Recurrence(Model):
 class Money(Model):
     amount: Annotated[Decimal, Field(ge=0, decimal_places=2)]
     currency: CurrencyCode = "USD"
+
+    @field_validator("amount")
+    @classmethod
+    def _cents(cls, value: Decimal) -> Decimal:
+        # 299 and 299.00 are the same price and must compare and serialize the same way
+        return value.quantize(Decimal("0.01"))
 
     def __str__(self) -> str:
         return f"{self.amount:.2f} {self.currency}"

@@ -80,3 +80,19 @@ def test_timezone_abbreviation_is_retried(axel_request, good_answer):
     chat = ScriptedChat(bad, good_answer)
     LLMOfferingExtractor(chat).extract(axel_request)
     assert "unknown IANA timezone" in _feedback(chat)
+
+
+def test_offer_that_cannot_be_bought_is_sent_back(axel_request, good_answer):
+    bad = copy.deepcopy(good_answer)
+    bad["offers"].append(
+        {
+            "id": "private-class",
+            "name": "Private class",
+            "price": {"amount": "60.00", "currency": "USD"},
+            "unit": "hour",
+            "checkout_method": "in_app",
+        }
+    )
+    chat = ScriptedChat(bad, good_answer)
+    LLMOfferingExtractor(chat).extract(axel_request)
+    assert "checkout method 'in_app' requires a url" in _feedback(chat)

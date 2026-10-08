@@ -14,12 +14,17 @@ Rules:
   so if the page advertises a start date, describe enrollment as a cohort starting on that date
   (the next occurrence of that date on or after {fetched_on}).
 - Prices are numbers with a 3-letter currency code. '$' means USD unless the page says otherwise.
-  A crossed-out higher price is list_price. A per-class figure that is just the package price
-  divided by the number of classes is NOT a separate offer; keep it in `advertised`.
+  `price` is what the customer pays now. When a package shows two amounts next to a discount,
+  the lower one is `price` and the higher one is `list_price`. A per-class figure that is just
+  the package price divided by the number of classes is NOT a separate offer; keep it in `advertised`.
 - Schedules: store one anchor timezone as an IANA name (e.g. America/Los_Angeles for PDT/PST)
   with the local start time in that zone. Put every other timezone the page lists into
   display_timezones as IANA names. Weekdays are numbers, Monday=0 ... Sunday=6.
 - level_rank is the number in a label such as 'Level 3'.
+- audience.goals are short phrases a customer would type when searching ('double axel',
+  'triple lutz', 'jump height'), not marketing slogans.
+- Write staff names exactly as on the page, including titles such as 'Coach'.
+- summary is one factual sentence: what it is, for whom (level), schedule, number of sessions, price.
 - checkout_url must be exactly one of the payment links provided, or null.
 - related offerings may only use these ids: {other_ids}.
 - Record contradictions on the page in `conflicts`.

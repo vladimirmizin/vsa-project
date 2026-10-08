@@ -1,8 +1,13 @@
-"""Refresh a catalog snapshot from its source. The live catalog is only replaced by validated data."""
+"""Refresh a catalog snapshot from its source.
+
+The live catalog is only replaced by validated data, and changes to what a customer pays,
+where they pay or when they can attend wait for a human to approve them.
+"""
 
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import Any
@@ -13,14 +18,28 @@ from vsa_commerce.catalog.store import CatalogStore, build_catalog
 from vsa_commerce.connectors.base import SourceConnector
 from vsa_commerce.domain.models import Catalog
 from vsa_commerce.errors import ExtractionError, OwnerRuleError, SourceUnavailableError
-from vsa_commerce.sync.diff import diff_snapshots
+from vsa_commerce.sync.diff import Change, diff_snapshots
 
 log = logging.getLogger(__name__)
+
+# An extraction can be valid and grounded and still wrong: the model may swap the price and the
+# crossed-out price, both of which appear on the page. These fields are never published unreviewed.
+CRITICAL_PATH = re.compile(
+    r"^offerings\[[^\]]+\]\.id$"
+    r"|\.offers\[[^\]]+\]\.(id|price|list_price|unit|duration_months|sessions_included|recurring|refundable|checkout)(\.|$)"
+    r"|\.schedule\.(weekdays|start_time|timezone|duration_minutes)$"
+    r"|\.enrollment\.(mode|cohort_start_dates|access_lead_time_hours)$"
+)
+
+
+def is_critical(change: Change) -> bool:
+    return bool(CRITICAL_PATH.search(change.path))
 
 
 class RefreshStatus(StrEnum):
     UPDATED = "updated"
     UNCHANGED = "unchanged"
+    NEEDS_REVIEW = "needs_review"
     SOURCE_UNAVAILABLE = "source_unavailable"
     REJECTED = "rejected"
 
@@ -30,15 +49,18 @@ class RefreshReport:
     business_id: str
     status: RefreshStatus
     changes: list[str] = field(default_factory=list)
+    needs_review: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
     saved: bool = False
 
     @property
     def kept_previous_snapshot(self) -> bool:
-        return self.status in (RefreshStatus.SOURCE_UNAVAILABLE, RefreshStatus.REJECTED)
+        return not self.saved and self.status is not RefreshStatus.UNCHANGED
 
 
-def refresh_catalog(store: CatalogStore, connector: SourceConnector, *, dry_run: bool = False) -> RefreshReport:
+def refresh_catalog(
+    store: CatalogStore, connector: SourceConnector, *, dry_run: bool = False, approve: bool = False
+) -> RefreshReport:
     business_id = connector.config.business_id
 
     def keep_previous(status: RefreshStatus, error: object) -> RefreshReport:
@@ -63,8 +85,15 @@ def refresh_catalog(store: CatalogStore, connector: SourceConnector, *, dry_run:
     except (ValidationError, OwnerRuleError) as exc:
         return keep_previous(RefreshStatus.REJECTED, exc)
 
-    report = RefreshReport(business_id, RefreshStatus.UPDATED if changes else RefreshStatus.UNCHANGED, changes=changes)
-    if changes and not dry_run:
+    critical = [str(c) for c in changes if is_critical(c)]
+    if not changes:
+        status = RefreshStatus.UNCHANGED
+    elif critical and not approve:
+        status = RefreshStatus.NEEDS_REVIEW
+    else:
+        status = RefreshStatus.UPDATED
+    report = RefreshReport(business_id, status, changes=[str(c) for c in changes], needs_review=critical)
+    if status is RefreshStatus.UPDATED and not dry_run:
         store.save_source_snapshot(business_id, candidate)
         report.saved = True
     log.info("refresh %s: %s, %d change(s), saved=%s", business_id, report.status.value, len(changes), report.saved)

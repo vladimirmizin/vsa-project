@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
 from typing import Protocol
 
 from pydantic import ValidationError
 
+from vsa_commerce.domain.models import Offering
 from vsa_commerce.errors import ExtractionError
+from vsa_commerce.extraction.assemble import assemble_offering
 from vsa_commerce.extraction.grounding import check_grounding
 from vsa_commerce.extraction.prompt import build_messages, feedback_message
 from vsa_commerce.extraction.schema import ExtractedOffering, ExtractionRequest
@@ -48,4 +51,11 @@ def _evaluate(raw: str, request: ExtractionRequest) -> tuple[ExtractedOffering |
     except ValidationError as exc:
         return None, [f"{'.'.join(map(str, e['loc']))}: {e['msg']}" for e in exc.errors()]
     problems = check_grounding(extracted, request)
-    return (None, problems) if problems else (extracted, [])
+    if problems:
+        return None, problems
+    # the assembled record must also be a valid catalog offering (e.g. a checkout needs a usable url)
+    try:
+        Offering.model_validate(assemble_offering(extracted, request, platform="check", fetched_at=datetime.now(UTC)))
+    except ValidationError as exc:
+        return None, [f"{'.'.join(map(str, e['loc']))}: {e['msg']}" for e in exc.errors()]
+    return extracted, []

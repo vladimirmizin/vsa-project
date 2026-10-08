@@ -98,6 +98,10 @@ class TestOffer:
         with pytest.raises(ValidationError):
             Money(amount=Decimal(-1))
 
+    def test_amounts_are_normalized_to_cents(self):
+        assert Money(amount=Decimal(299)) == Money(amount=Decimal("299.00"))
+        assert Money(amount=Decimal(299)).model_dump(mode="json")["amount"] == "299.00"
+
     def test_money_str(self):
         assert str(Money(amount=Decimal(299))) == "299.00 USD"
 

@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--business", default="victory-skating")
     parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--dry-run", action="store_true", help="show the diff without saving")
+    parser.add_argument("--approve", action="store_true", help="publish changes to prices, checkout or schedule")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(levelname)s %(message)s")
 
@@ -40,10 +41,16 @@ def main(argv: list[str] | None = None) -> None:
     except MissingApiKeyError as exc:
         sys.exit(str(exc))
 
-    report = refresh_catalog(store, TildaConnector(config, LLMOfferingExtractor(chat)), dry_run=args.dry_run)
+    connector = TildaConnector(config, LLMOfferingExtractor(chat))
+    report = refresh_catalog(store, connector, dry_run=args.dry_run, approve=args.approve)
     print(f"{report.business_id}: {report.status.value}" + (" (saved)" if report.saved else ""))
     for line in report.changes + [f"error: {e}" for e in report.errors]:
         print(f"  {line}")
+    if report.needs_review:
+        print(f"\n{len(report.needs_review)} change(s) affect what customers pay or when they attend:")
+        for line in report.needs_review:
+            print(f"  ! {line}")
+        print("Review them, then run again with --approve to publish.")
     sys.exit(1 if report.kept_previous_snapshot else 0)
 
 
