@@ -188,9 +188,11 @@ class CommerceTools:
         self,
         ctx: CallContext,
         offering_id: str,
+        *,
         offer_id: str | None = None,
         email: str | None = None,
         timezone: str | None = None,
+        date: str | None = None,
     ) -> CheckoutLink:
         started = time.perf_counter()
         offering = self._offering(offering_id)
@@ -206,7 +208,8 @@ class CommerceTools:
             url, reference = build_checkout_url(offer.checkout, session_id=ctx.session_id, email=email)
 
         tz = _check_timezone(timezone)
-        first_session = self._first_attendable_session(offering, tz)
+        start = _parse_date(date)
+        first_session = self._first_attendable_session(offering, tz, start)
         link = CheckoutLink(
             session_id=ctx.session_id,
             offering_id=offering.id,
@@ -218,6 +221,7 @@ class CommerceTools:
             what_happens_next=_what_happens_next(offering, offer, first_session),
             first_session=first_session,
             reference=reference,
+            requested_date=start,
         )
         self._track(
             ctx,
@@ -261,12 +265,15 @@ class CommerceTools:
             note="Times are computed for the next session; local times can shift when clocks change.",
         )
 
-    def _first_attendable_session(self, offering: Offering, tz: str | None) -> str | None:
+    def _first_attendable_session(self, offering: Offering, tz: str | None, start: date | None) -> str | None:
         if offering.schedule is None:
             return None
+        zone = tz or offering.schedule.timezone
         ready = self.clock() + timedelta(hours=offering.enrollment.access_lead_time_hours)
+        if start is not None:
+            ready = max(ready, datetime.combine(start, datetime.min.time(), tzinfo=ZoneInfo(zone)))
         sessions = upcoming_sessions(offering.schedule, ready, 1)
-        return sessions[0].in_timezone(tz or offering.schedule.timezone).label() if sessions else None
+        return sessions[0].in_timezone(zone).label() if sessions else None
 
     def _track(
         self, ctx: CallContext, type_: EventType, offering_id: str | None, data: dict[str, Any], started: float
@@ -384,7 +391,7 @@ def _parse_amount(value: float | str | None) -> Decimal | None:
         raise ToolInputError(f"max_price must be a number, got {value!r}.") from None
     if amount < 0:
         raise ToolInputError("max_price cannot be negative.")
-    return amount
+    return amount.quantize(Decimal("0.01"))
 
 
 def _parse_date(value: str | None) -> date | None:

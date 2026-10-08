@@ -126,6 +126,7 @@ def build_server(tools: CommerceTools, *, channel: str = "mcp") -> FastMCP:
     )
     def create_checkout_link(
         offering_id: OfferingId,
+        *,
         offer_id: Annotated[
             str | None, Field(description="Specific offer id from the offering's prices; omit for the main offer.")
         ] = None,
@@ -133,9 +134,18 @@ def build_server(tools: CommerceTools, *, channel: str = "mcp") -> FastMCP:
             str | None, Field(description="Customer's email, only if they gave it, to prefill the checkout.")
         ] = None,
         timezone: CustomerTimezone = None,
+        date: Annotated[
+            str | None,
+            Field(description="Date the customer wants to start, as YYYY-MM-DD, if they mentioned one."),
+        ] = None,
         session_id: SessionId = None,
     ) -> CheckoutLink:
-        return call(session_id, lambda c: tools.create_checkout_link(c, offering_id, offer_id, email, timezone))
+        return call(
+            session_id,
+            lambda c: tools.create_checkout_link(
+                c, offering_id, offer_id=offer_id, email=email, timezone=timezone, date=date
+            ),
+        )
 
     return mcp
 

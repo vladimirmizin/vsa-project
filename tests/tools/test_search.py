@@ -32,7 +32,7 @@ def test_both_brand_names_are_returned(tools, ctx, brand):
 def test_budget_excludes_with_a_reason(tools, ctx):
     response = tools.search_offerings(ctx, "double axel", max_price=200)
     clubs = {e.offering_id: e.reason for e in response.excluded}
-    assert "above the 200 USD budget" in clubs["double-axel-club"]
+    assert "above the 200.00 USD budget" in clubs["double-axel-club"]
     assert [r.offering_id for r in response.results] == ["private-lesson-marta"]
 
 

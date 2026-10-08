@@ -121,6 +121,11 @@ class TestCheckout:
         late = CommerceTools(store, "victory-skating", events=events, clock=lambda: friday_noon_la)
         assert late.create_checkout_link(ctx, AXEL).first_session == "Sun 8 Nov 2026, 07:00-07:45 PST"
 
+    def test_first_session_from_the_requested_start_date(self, tools, ctx):
+        link = tools.create_checkout_link(ctx, AXEL, date="2026-11-06")
+        assert link.first_session == "Sat 7 Nov 2026, 07:00-07:45 PST"
+        assert link.requested_date.isoformat() == "2026-11-06"
+
     def test_first_session_in_customer_timezone(self, tools, ctx):
         link = tools.create_checkout_link(ctx, AXEL, timezone="Europe/London")
         assert link.first_session == "Sat 10 Oct 2026, 15:00-15:45 BST"
@@ -159,7 +164,7 @@ class TestTracking:
         ]
         assert {e.session_id for e in recorded} == {"session-1"}
         assert {e.channel for e in recorded} == {"test"}
-        assert recorded[0].data["max_price"] == "350"
+        assert recorded[0].data["max_price"] == "350.00"
         assert recorded[2].data["requested_date"] == "2026-11-06"
         assert recorded[3].data["reference"] == "session-1"
         assert all("elapsed_ms" in e.data for e in recorded)
