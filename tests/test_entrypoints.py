@@ -54,3 +54,32 @@ def test_mcp_server_main(monkeypatch, tmp_path, argv, expected):
     monkeypatch.setattr(mcp_server.FastMCP, "run", lambda self, **kwargs: calls.append(kwargs))
     mcp_server.main(["--data-dir", str(DATA_DIR), "--events", str(tmp_path / "e.jsonl"), *argv])
     assert calls == [{**expected, "show_banner": False}]
+
+
+def test_refresh_cli_onboards_then_refreshes_a_shopify_store(monkeypatch, tmp_path, capsys):
+    import shutil
+    from datetime import UTC, datetime
+
+    from tests.support.paths import FIXTURES
+    from vsa_commerce.connectors import shopify
+    from vsa_commerce.connectors.http import SourceDocument
+
+    feed = (FIXTURES / "shopify" / "products.json").read_text(encoding="utf-8")
+    monkeypatch.setattr(
+        shopify, "fetch_document", lambda url, client=None: SourceDocument(url, feed, datetime.now(UTC))
+    )
+    (tmp_path / "edge-skate-shop").mkdir()
+    shutil.copy(DATA_DIR / "edge-skate-shop" / "source.json", tmp_path / "edge-skate-shop" / "source.json")
+
+    for expected in ("onboarded 3 offering(s)", "edge-skate-shop: unchanged"):
+        with pytest.raises(SystemExit) as exit_info:
+            refresh_cli.main(["--business", "edge-skate-shop", "--data-dir", str(tmp_path)])
+        assert exit_info.value.code == 0
+        assert expected in capsys.readouterr().out
+
+
+def test_refresh_cli_unknown_platform(tmp_path):
+    (tmp_path / "b").mkdir()
+    (tmp_path / "b" / "source.json").write_text('{"business_id": "b", "platform": "mindbody"}', encoding="utf-8")
+    with pytest.raises(SystemExit, match="no connector for platform 'mindbody'"):
+        refresh_cli.main(["--business", "b", "--data-dir", str(tmp_path)])

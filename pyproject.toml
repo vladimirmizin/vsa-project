@@ -23,6 +23,7 @@ vsa-mcp = "vsa_commerce.channels.mcp_server:main"
 vsa-chat = "vsa_commerce.channels.chat_cli:main"
 vsa-refresh = "vsa_commerce.sync.cli:main"
 vsa-report = "vsa_commerce.tracking.cli:main"
+vsa-export = "vsa_commerce.exports.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.12.23,<0.13.0"]

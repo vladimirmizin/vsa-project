@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "@id": "https://victoryskating.com/#double-axel-club",
+  "name": "6-Month Double Axel Club",
+  "description": "Live online group classes focused on the Double Axel off-ice: approach and set-up, generating rotation and height, precise landings, plyometric and bounding drills for take-off power, core strength for a stable rotation axis, and double-revolution drills for muscle memory. Drills progress in difficulty and lead into triple jumps.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "6-Month Package",
+      "price": "299.00",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Victory Skating Academy"
+      },
+      "url": "https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "299.00",
+        "priceCurrency": "USD",
+        "billingDuration": "P6M",
+        "referencePrice": {
+          "@type": "UnitPriceSpecification",
+          "priceType": "https://schema.org/ListPrice",
+          "price": "699.00",
+          "priceCurrency": "USD"
+        }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+      }
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "Victory Skating Academy",
+    "alternateName": [
+      "Victory Skating",
+      "VSA",
+      "VSA World"
+    ],
+    "url": "https://victoryskating.com/",
+    "description": "Online figure skating academy. Live online off-ice group classes for double jumps, the Double Axel and triple jumps, plus private lessons booked through the VSA app.",
+    "email": "info@vsaworld.com",
+    "sameAs": [
+      "https://www.instagram.com/vsaworld",
+      "https://www.instagram.com/vsafigureskating/"
+    ]
+  },
+  "educationalLevel": "Level 3",
+  "coursePrerequisites": [
+    "Proficiency in double jumps off-ice"
+  ],
+  "syllabusSections": [
+    {
+      "@type": "Syllabus",
+      "name": "Technique Development",
+      "description": "Correct approach and set-up; Generating rotation and height for the double axel; Precise landings for stability and injury prevention"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Power and Explosiveness",
+      "description": "Plyometric training for take-off strength; Bounding drills; Core strengthening to stabilise the rotation axis"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Rotational Speed",
+      "description": "Off-ice spins for rotational control and speed; Double-revolution drills for muscle memory"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Progression",
+      "description": "From basic drills to more complex ones; Transition into harder double jumps and triple jumps"
+    }
+  ],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "instructor": [
+      {
+        "@type": "Person",
+        "name": "Coach Marta",
+        "description": "Figure skating coach with international experience as a skater and a coach. Trained at MKS Axel Toruń in Poland and with Team Mayer-Virtanen in Finland. Degree in Physical Education."
+      }
+    ],
+    "courseSchedule": {
+      "@type": "Schedule",
+      "repeatFrequency": "P1W",
+      "byDay": [
+        "https://schema.org/Saturday",
+        "https://schema.org/Sunday"
+      ],
+      "startTime": "07:00",
+      "endTime": "07:45",
+      "duration": "PT45M",
+      "scheduleTimezone": "America/Los_Angeles"
+    },
+    "courseWorkload": "48 live sessions"
+  }
+}

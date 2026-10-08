@@ -14,9 +14,12 @@ from typing import Annotated, TypeVar
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 from pydantic import Field
+from starlette.requests import Request
+from starlette.responses import JSONResponse, PlainTextResponse, Response
 
 from vsa_commerce.catalog.store import CatalogStore, default_data_dir
 from vsa_commerce.errors import ToolInputError
+from vsa_commerce.exports import offering_jsonld, render_feed, render_llms_txt
 from vsa_commerce.tools import CallContext, CommerceTools
 from vsa_commerce.tools.views import AvailabilityView, CheckoutLink, OfferingDetails, SearchResponse
 from vsa_commerce.tracking import JsonlEventLog
@@ -146,6 +149,26 @@ def build_server(tools: CommerceTools, *, channel: str = "mcp") -> FastMCP:
                 c, offering_id, offer_id=offer_id, email=email, timezone=timezone, date=date
             ),
         )
+
+    # Passive channel, served next to the MCP endpoint when running over HTTP
+    @mcp.custom_route("/llms.txt", methods=["GET"])
+    async def llms_txt(request: Request) -> Response:
+        base = str(request.base_url).rstrip("/")
+        text = render_llms_txt(tools.catalog, mcp_url=f"{base}/mcp", feed_url=f"{base}/feed.json")
+        return PlainTextResponse(text, media_type="text/markdown; charset=utf-8")
+
+    @mcp.custom_route("/feed.json", methods=["GET"])
+    async def feed(request: Request) -> Response:
+        return JSONResponse(render_feed(tools.catalog, now=tools.clock()))
+
+    @mcp.custom_route("/jsonld/{offering_id}", methods=["GET"])
+    async def jsonld(request: Request) -> Response:
+        catalog = tools.catalog
+        try:
+            offering = catalog.get(request.path_params["offering_id"])
+        except KeyError:
+            return JSONResponse({"error": "unknown offering"}, status_code=404)
+        return JSONResponse(offering_jsonld(catalog, offering), media_type="application/ld+json")
 
     return mcp
 

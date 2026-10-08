@@ -1,0 +1,55 @@
+# Victory Skating Academy
+
+> Online figure skating academy. Live online off-ice group classes for double jumps, the Double Axel and triple jumps, plus private lessons booked through the VSA app. Also known as: Victory Skating, VSA, Victory Skating Academy, VSA World.
+
+## Offerings
+
+### 6-Month Double Jumps Club
+
+Level 2 online off-ice group training for skaters moving to double jumps (double salchow, toe loop, loop, flip and lutz): two live 45-minute classes every Saturday and Sunday, 48 classes over 6 months, $299.
+
+- Level: Level 2
+- Price: 299.00 USD for 6 months
+- Enroll / buy: https://buy.stripe.com/fZubJ16anape0P0eRhdMM1L
+- Schedule: every Saturday and Sunday at 08:00 America/Los_Angeles time, 45 minutes (local times in any timezone are available through the MCP tools)
+- Enrollment: open continuously; join any time and start at the next session
+- Led by: Coach Diana, Coach Marta
+- Source: https://victoryskating.com/doublejumps
+
+### 6-Month Double Axel Club
+
+Level 3 online off-ice group training for skaters who already land double jumps off-ice and want to master the Double Axel: two live 45-minute classes with Coach Marta every Saturday and Sunday, 48 classes over 6 months, $299.
+
+- Level: Level 3
+- Price: 299.00 USD every 6 months, renews automatically until cancelled, non-refundable
+- Enroll / buy: https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M
+- Schedule: every Saturday and Sunday at 07:00 America/Los_Angeles time, 45 minutes (local times in any timezone are available through the MCP tools)
+- Enrollment: open continuously; join any time and start at the next session
+- Led by: Coach Marta
+- Source: https://victoryskating.com/doubleaxel
+
+### 6-Month Triple Jumps Club
+
+Level 4 online off-ice group training for skaters who are proficient in triple jumps off-ice and want to land them: two live 45-minute classes every Saturday and Sunday, 48 classes over 6 months, $299.
+
+- Level: Level 4
+- Price: 299.00 USD for 6 months
+- Enroll / buy: https://buy.stripe.com/aFa8wP9mz54UbtEgZpdMM1t
+- Schedule: every Saturday and Sunday at 07:00 America/Los_Angeles time, 45 minutes (local times in any timezone are available through the MCP tools)
+- Enrollment: open continuously; join any time and start at the next session
+- Led by: Coach Alice, Coach Lena
+- Source: https://victoryskating.com/triplejumps
+
+### Private lesson with Coach Marta
+
+One-to-one online class with Coach Marta at $60 per hour, booked in the VSA app.
+
+- Price: 60.00 USD per hour
+- Enroll / buy: https://vsaworld.com/download/
+- Led by: Coach Marta
+- Source: https://victoryskating.com/doubleaxel
+
+## Contact
+
+- Website: https://victoryskating.com/
+- Email: info@vsaworld.com

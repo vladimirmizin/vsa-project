@@ -1,0 +1,36 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://victoryskating.com/#private-lesson-marta",
+  "name": "Private lesson with Coach Marta",
+  "description": "Individual coaching with the Double Axel Club coach. Booked through the VSA app; Double Axel Club members get a $5 discount on their next private class.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Private lesson, per hour",
+      "price": "60.00",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Victory Skating Academy"
+      },
+      "url": "https://vsaworld.com/download/"
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "Victory Skating Academy",
+    "alternateName": [
+      "Victory Skating",
+      "VSA",
+      "VSA World"
+    ],
+    "url": "https://victoryskating.com/",
+    "description": "Online figure skating academy. Live online off-ice group classes for double jumps, the Double Axel and triple jumps, plus private lessons booked through the VSA app.",
+    "email": "info@vsaworld.com",
+    "sameAs": [
+      "https://www.instagram.com/vsaworld",
+      "https://www.instagram.com/vsafigureskating/"
+    ]
+  }
+}

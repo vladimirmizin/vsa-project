@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from vsa_commerce.catalog.store import CatalogStore
 from vsa_commerce.domain.availability import check_availability
-from vsa_commerce.domain.models import Catalog, EnrollmentMode, Offer, Offering, PriceUnit, Weekday
+from vsa_commerce.domain.models import Catalog, EnrollmentMode, Offer, Offering, Weekday
 from vsa_commerce.domain.sessions import upcoming_sessions
 from vsa_commerce.errors import ToolInputError
 from vsa_commerce.tools.checkout import build_checkout_url
@@ -308,16 +308,6 @@ def _day(weekday: Weekday) -> str:
     return weekday.name.capitalize()
 
 
-def _billing(offer: Offer) -> str:
-    price = str(offer.price)
-    if offer.recurring is not None:
-        renew = ", renews automatically until cancelled" if offer.recurring.auto_renews else ""
-        return f"{price} {offer.recurring.describe()}{renew}"
-    if offer.unit is PriceUnit.PACKAGE and offer.duration_months:
-        return f"{price} for {offer.duration_months} months"
-    return f"{price} per {offer.unit.value}"
-
-
 def _price_view(offer: Offer) -> PriceView:
     per_session = offer.price_per_session
     return PriceView(
@@ -327,7 +317,7 @@ def _price_view(offer: Offer) -> PriceView:
         list_price=str(offer.list_price) if offer.list_price else None,
         discount_percent=offer.discount_percent,
         price_per_session=str(per_session) if per_session else None,
-        billing=_billing(offer),
+        billing=offer.billing_text(),
         refundable=offer.refundable,
         available=offer.available,
         cancellation_policy=offer.recurring.cancellation_policy if offer.recurring else None,
@@ -361,7 +351,7 @@ def _what_happens_next(offering: Offering, offer: Offer, first_session: str | No
     if first_session:
         steps.append(f"Earliest session to plan for: {first_session}.")
     if offer.recurring:
-        steps.append(f"Billing: {_billing(offer)}.")
+        steps.append(f"Billing: {offer.billing_text()}.")
         if offer.recurring.cancellation_policy:
             steps.append(offer.recurring.cancellation_policy)
     if offer.refundable is False:

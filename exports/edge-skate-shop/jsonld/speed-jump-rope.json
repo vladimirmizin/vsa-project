@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "https://edge-skate.example.com/#speed-jump-rope",
+  "name": "Speed Jump Rope",
+  "description": "Adjustable steel-cable rope for footwork and plyometric drills.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Speed Jump Rope",
+      "price": "14.00",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Edge Skate Shop"
+      },
+      "url": "https://edge-skate.example.com/cart/4501:1",
+      "availability": "https://schema.org/InStock"
+    }
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "Edge Skate Shop"
+  }
+}

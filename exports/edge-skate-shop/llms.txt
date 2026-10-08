@@ -1,0 +1,35 @@
+# Edge Skate Shop
+
+> Example Shopify store with figure skating equipment, used to show a second business and a second connector on the same platform. Also known as: Edge, Edge Skate Shop.
+
+## Offerings
+
+### Off-Ice Spinner Board
+
+Practice single, double and triple rotations off the ice.
+
+- Price: 24.99 USD per item
+- Enroll / buy: https://edge-skate.example.com/cart/4401:1
+- Price: 24.99 USD per item
+- Enroll / buy: https://edge-skate.example.com/cart/4402:1
+- Source: https://edge-skate.example.com/products/off-ice-spinner-board
+
+### Speed Jump Rope
+
+Adjustable steel-cable rope for footwork and plyometric drills.
+
+- Price: 14.00 USD per item
+- Enroll / buy: https://edge-skate.example.com/cart/4501:1
+- Source: https://edge-skate.example.com/products/speed-jump-rope
+
+### Blade Guard Set
+
+Blade Guard Set
+
+- Price: 18.50 USD per item
+- Enroll / buy: https://edge-skate.example.com/cart/4601:1
+- Source: https://edge-skate.example.com/products/blade-guard-set
+
+## Contact
+
+- Website: https://edge-skate.example.com/

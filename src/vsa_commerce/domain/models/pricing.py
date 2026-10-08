@@ -95,6 +95,16 @@ class Offer(Model):
                 raise ValueError("list_price cannot be lower than price")
         return self
 
+    def billing_text(self) -> str:
+        """E.g. '299.00 USD every 6 months, renews automatically until cancelled'."""
+        price = str(self.price)
+        if self.recurring is not None:
+            renew = ", renews automatically until cancelled" if self.recurring.auto_renews else ""
+            return f"{price} {self.recurring.describe()}{renew}"
+        if self.unit is PriceUnit.PACKAGE and self.duration_months:
+            return f"{price} for {self.duration_months} months"
+        return f"{price} per {self.unit.value}"
+
     # Plain properties, not computed fields: a dumped catalog must validate again unchanged.
 
     @property

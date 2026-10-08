@@ -1,0 +1,100 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "@id": "https://victoryskating.com/#triple-jumps-club",
+  "name": "6-Month Triple Jumps Club",
+  "description": "Live online group classes on triple jumps off-ice (triple salchow, toe loop, loop, flip and lutz): take-off edges and mechanics, plyometric and bounding drills, core strength, off-ice spins and triple-revolution drills, progressing in difficulty.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "6-Month Package",
+      "price": "299.00",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Victory Skating Academy"
+      },
+      "url": "https://buy.stripe.com/aFa8wP9mz54UbtEgZpdMM1t",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "referencePrice": {
+          "@type": "UnitPriceSpecification",
+          "priceType": "https://schema.org/ListPrice",
+          "price": "699.00",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+  ],
+  "provider": {
+    "@type": "Organization",
+    "name": "Victory Skating Academy",
+    "alternateName": [
+      "Victory Skating",
+      "VSA",
+      "VSA World"
+    ],
+    "url": "https://victoryskating.com/",
+    "description": "Online figure skating academy. Live online off-ice group classes for double jumps, the Double Axel and triple jumps, plus private lessons booked through the VSA app.",
+    "email": "info@vsaworld.com",
+    "sameAs": [
+      "https://www.instagram.com/vsaworld",
+      "https://www.instagram.com/vsafigureskating/"
+    ]
+  },
+  "educationalLevel": "Level 4",
+  "coursePrerequisites": [
+    "Proficiency in triple jumps off-ice"
+  ],
+  "syllabusSections": [
+    {
+      "@type": "Syllabus",
+      "name": "Introduction to Triple Jumps",
+      "description": "Triple Salchow; Triple Toe Loop; Triple Loop, Flip and Lutz"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Power and Explosiveness",
+      "description": "Plyometric training for take-off strength; Bounding drills; Core strengthening to stabilise the rotation axis"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Rotational Speed",
+      "description": "Off-ice spins for rotational control and speed; Triple-revolution drills for muscle memory"
+    },
+    {
+      "@type": "Syllabus",
+      "name": "Progression",
+      "description": "From basic drills to more complex ones as technique improves"
+    }
+  ],
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "instructor": [
+      {
+        "@type": "Person",
+        "name": "Coach Alice",
+        "description": "Figure skating coach and third-category judge in single skating. Specialises in multi-rotational jumping technique, program creation and Level 4 spins."
+      },
+      {
+        "@type": "Person",
+        "name": "Coach Lena",
+        "description": "22 years of coaching experience; nearly 5 years with the Imperial Ice Stars. Trained under Olympic Champion Robin Cousins and completed an ISU seminar on current judging rules."
+      }
+    ],
+    "courseSchedule": {
+      "@type": "Schedule",
+      "repeatFrequency": "P1W",
+      "byDay": [
+        "https://schema.org/Saturday",
+        "https://schema.org/Sunday"
+      ],
+      "startTime": "07:00",
+      "endTime": "07:45",
+      "duration": "PT45M",
+      "scheduleTimezone": "America/Los_Angeles"
+    },
+    "courseWorkload": "48 live sessions"
+  }
+}

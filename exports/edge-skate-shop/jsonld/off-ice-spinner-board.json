@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "https://edge-skate.example.com/#off-ice-spinner-board",
+  "name": "Off-Ice Spinner Board",
+  "description": "Practice single, double and triple rotations off the ice. Curved base, non-slip top.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Off-Ice Spinner Board, Black",
+      "price": "24.99",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Edge Skate Shop"
+      },
+      "url": "https://edge-skate.example.com/cart/4401:1",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "referencePrice": {
+          "@type": "UnitPriceSpecification",
+          "priceType": "https://schema.org/ListPrice",
+          "price": "29.99",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "Off-Ice Spinner Board, Pink",
+      "price": "24.99",
+      "priceCurrency": "USD",
+      "seller": {
+        "@type": "Organization",
+        "name": "Edge Skate Shop"
+      },
+      "url": "https://edge-skate.example.com/cart/4402:1",
+      "availability": "https://schema.org/OutOfStock"
+    }
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "Edge Skate Shop"
+  }
+}
