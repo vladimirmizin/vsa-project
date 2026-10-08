@@ -82,6 +82,7 @@ class Offer(Model):
     sessions_included: Annotated[int, Field(gt=0)] | None = None
     recurring: Recurrence | None = Field(default=None, description="Billing cycle; null for a one-time payment.")
     refundable: bool | None = None
+    available: bool | None = Field(default=None, description="In stock / bookable; null when the source does not say.")
     checkout: Checkout
     terms: list[str] = Field(default_factory=list)
 

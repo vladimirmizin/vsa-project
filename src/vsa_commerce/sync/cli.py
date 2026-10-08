@@ -12,9 +12,9 @@ from dotenv import load_dotenv
 from vsa_commerce.catalog.store import CatalogStore, default_data_dir
 from vsa_commerce.channels.llm import LLMSettings, MissingApiKeyError, OpenAICompatibleChat
 from vsa_commerce.connectors.base import SourceConfig
-from vsa_commerce.connectors.tilda import TildaConnector
+from vsa_commerce.connectors.registry import build_connector, needs_extractor
 from vsa_commerce.extraction import LLMOfferingExtractor
-from vsa_commerce.sync.refresh import refresh_catalog
+from vsa_commerce.sync.refresh import onboard_catalog, refresh_catalog
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -34,15 +34,22 @@ def main(argv: list[str] | None = None) -> None:
     if raw_config is None:
         sys.exit(f"no source.json for {args.business!r}")
     config = SourceConfig.model_validate(raw_config)
-    if config.platform != TildaConnector.platform:
-        sys.exit(f"no connector registered for platform {config.platform!r}")
+
+    extractor = None
+    if needs_extractor(config.platform):
+        try:
+            extractor = LLMOfferingExtractor(OpenAICompatibleChat(LLMSettings.from_env()))
+        except MissingApiKeyError as exc:
+            sys.exit(str(exc))
     try:
-        chat = OpenAICompatibleChat(LLMSettings.from_env())
-    except MissingApiKeyError as exc:
+        connector = build_connector(config, extractor=extractor)
+    except ValueError as exc:
         sys.exit(str(exc))
 
-    connector = TildaConnector(config, LLMOfferingExtractor(chat))
-    report = refresh_catalog(store, connector, dry_run=args.dry_run, approve=args.approve)
+    if store.read_source_snapshot(args.business) is None:
+        report = onboard_catalog(store, connector)
+    else:
+        report = refresh_catalog(store, connector, dry_run=args.dry_run, approve=args.approve)
     print(f"{report.business_id}: {report.status.value}" + (" (saved)" if report.saved else ""))
     for line in report.changes + [f"error: {e}" for e in report.errors]:
         print(f"  {line}")

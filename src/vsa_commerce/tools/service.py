@@ -329,6 +329,7 @@ def _price_view(offer: Offer) -> PriceView:
         price_per_session=str(per_session) if per_session else None,
         billing=_billing(offer),
         refundable=offer.refundable,
+        available=offer.available,
         cancellation_policy=offer.recurring.cancellation_policy if offer.recurring else None,
         duration_months=offer.duration_months,
         sessions_included=offer.sessions_included,

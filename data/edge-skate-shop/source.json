@@ -1,0 +1,13 @@
+{
+  "business_id": "edge-skate-shop",
+  "platform": "shopify",
+  "options": {"store_url": "https://edge-skate.example.com", "currency": "USD"},
+  "business": {
+    "id": "edge-skate-shop",
+    "name": "Edge Skate Shop",
+    "brand_names": ["Edge", "Edge Skate Shop"],
+    "description": "Example Shopify store with figure skating equipment, used to show a second business and a second connector on the same platform.",
+    "website": "https://edge-skate.example.com",
+    "timezone": "America/New_York"
+  }
+}

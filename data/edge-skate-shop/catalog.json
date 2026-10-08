@@ -1,0 +1,167 @@
+{
+  "business": {
+    "id": "edge-skate-shop",
+    "name": "Edge Skate Shop",
+    "brand_names": [
+      "Edge",
+      "Edge Skate Shop"
+    ],
+    "description": "Example Shopify store with figure skating equipment, used to show a second business and a second connector on the same platform.",
+    "website": "https://edge-skate.example.com",
+    "timezone": "America/New_York"
+  },
+  "offerings": [
+    {
+      "id": "off-ice-spinner-board",
+      "business_id": "edge-skate-shop",
+      "kind": "product",
+      "name": "Off-Ice Spinner Board",
+      "summary": "Practice single, double and triple rotations off the ice.",
+      "description": "Practice single, double and triple rotations off the ice. Curved base, non-slip top.",
+      "delivery": "shipped",
+      "audience": {
+        "goals": [
+          "off-ice spinner",
+          "spin training",
+          "rotation"
+        ]
+      },
+      "enrollment": {
+        "mode": "purchase"
+      },
+      "offers": [
+        {
+          "id": "variant-4401",
+          "name": "Off-Ice Spinner Board, Black",
+          "price": {
+            "amount": "24.99",
+            "currency": "USD"
+          },
+          "list_price": {
+            "amount": "29.99",
+            "currency": "USD"
+          },
+          "unit": "item",
+          "available": true,
+          "checkout": {
+            "method": "cart",
+            "url": "https://edge-skate.example.com/cart/4401:1",
+            "reference_param": "attributes[ai_session]"
+          }
+        },
+        {
+          "id": "variant-4402",
+          "name": "Off-Ice Spinner Board, Pink",
+          "price": {
+            "amount": "24.99",
+            "currency": "USD"
+          },
+          "list_price": null,
+          "unit": "item",
+          "available": false,
+          "checkout": {
+            "method": "cart",
+            "url": "https://edge-skate.example.com/cart/4402:1",
+            "reference_param": "attributes[ai_session]"
+          }
+        }
+      ],
+      "provenance": {
+        "source_url": "https://edge-skate.example.com/products/off-ice-spinner-board",
+        "platform": "shopify",
+        "fetched_at": "2026-10-08T18:55:27.216180+00:00",
+        "advertised": {
+          "vendor": "Edge Skate Shop"
+        }
+      }
+    },
+    {
+      "id": "speed-jump-rope",
+      "business_id": "edge-skate-shop",
+      "kind": "product",
+      "name": "Speed Jump Rope",
+      "summary": "Adjustable steel-cable rope for footwork and plyometric drills.",
+      "description": "Adjustable steel-cable rope for footwork and plyometric drills.",
+      "delivery": "shipped",
+      "audience": {
+        "goals": [
+          "jump rope",
+          "conditioning",
+          "plyometrics"
+        ]
+      },
+      "enrollment": {
+        "mode": "purchase"
+      },
+      "offers": [
+        {
+          "id": "variant-4501",
+          "name": "Speed Jump Rope",
+          "price": {
+            "amount": "14.00",
+            "currency": "USD"
+          },
+          "list_price": null,
+          "unit": "item",
+          "available": true,
+          "checkout": {
+            "method": "cart",
+            "url": "https://edge-skate.example.com/cart/4501:1",
+            "reference_param": "attributes[ai_session]"
+          }
+        }
+      ],
+      "provenance": {
+        "source_url": "https://edge-skate.example.com/products/speed-jump-rope",
+        "platform": "shopify",
+        "fetched_at": "2026-10-08T18:55:27.216180+00:00",
+        "advertised": {
+          "vendor": "Edge Skate Shop"
+        }
+      }
+    },
+    {
+      "id": "blade-guard-set",
+      "business_id": "edge-skate-shop",
+      "kind": "product",
+      "name": "Blade Guard Set",
+      "summary": "Blade Guard Set",
+      "description": "",
+      "delivery": "shipped",
+      "audience": {
+        "goals": [
+          "accessories"
+        ]
+      },
+      "enrollment": {
+        "mode": "purchase"
+      },
+      "offers": [
+        {
+          "id": "variant-4601",
+          "name": "Blade Guard Set",
+          "price": {
+            "amount": "18.50",
+            "currency": "USD"
+          },
+          "list_price": null,
+          "unit": "item",
+          "available": false,
+          "checkout": {
+            "method": "cart",
+            "url": "https://edge-skate.example.com/cart/4601:1",
+            "reference_param": "attributes[ai_session]"
+          }
+        }
+      ],
+      "provenance": {
+        "source_url": "https://edge-skate.example.com/products/blade-guard-set",
+        "platform": "shopify",
+        "fetched_at": "2026-10-08T18:55:27.216180+00:00",
+        "advertised": {
+          "vendor": "Edge Skate Shop"
+        }
+      }
+    }
+  ]
+}

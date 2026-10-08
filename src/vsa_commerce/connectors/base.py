@@ -25,6 +25,7 @@ class SourceConfig(BaseModel):
     platform: str
     pages: list[PageSpec] = Field(default_factory=list)
     options: dict[str, Any] = Field(default_factory=dict)
+    business: dict[str, Any] | None = Field(default=None, description="Business profile used when onboarding.")
 
 
 class SourceConnector(ABC):

@@ -22,6 +22,7 @@ class PriceView(View):
     price_per_session: str | None = None
     billing: str
     refundable: bool | None = None
+    available: bool | None = None
     cancellation_policy: str | None = None
     duration_months: int | None = None
     sessions_included: int | None = None

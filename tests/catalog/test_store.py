@@ -11,7 +11,7 @@ from vsa_commerce.errors import CatalogNotFoundError
 
 
 def test_lists_businesses(store):
-    assert store.business_ids() == ["victory-skating"]
+    assert store.business_ids() == ["edge-skate-shop", "victory-skating"]
 
 
 def test_missing_data_dir_lists_nothing(tmp_path):

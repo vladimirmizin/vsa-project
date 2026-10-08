@@ -42,6 +42,9 @@ def rank(
     excluded: list[tuple[Offering, str]] = []
 
     for offering in catalog.offerings:
+        if all(o.available is False for o in offering.offers):
+            excluded.append((offering, "sold out"))
+            continue
         if max_price is not None:
             affordable = [o for o in offering.offers if o.price.currency == currency and o.price.amount <= max_price]
             if not affordable:

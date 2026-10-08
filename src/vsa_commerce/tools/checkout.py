@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from vsa_commerce.domain.models import Checkout, CheckoutMethod
+from vsa_commerce.domain.models import Checkout
 
 # Stripe accepts letters, digits, '-' and '_' in client_reference_id, up to 200 characters
 _REFERENCE_UNSAFE = re.compile(r"[^A-Za-z0-9_-]")
@@ -22,7 +22,7 @@ def build_checkout_url(
     parts = urlsplit(url)
     params = dict(parse_qsl(parts.query))
     reference = None
-    if checkout.method is CheckoutMethod.PAYMENT_LINK and checkout.reference_param and session_id:
+    if checkout.reference_param and session_id:
         reference = reference_for(session_id)
         params[checkout.reference_param] = reference
     email_param = _PREFILLED_EMAIL.get(parts.netloc)

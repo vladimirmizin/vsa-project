@@ -100,6 +100,23 @@ def refresh_catalog(
     return report
 
 
+def onboard_catalog(store: CatalogStore, connector: SourceConnector) -> RefreshReport:
+    """First import of a business: the profile comes from source.json, the offerings from the connector."""
+    business = connector.config.business
+    business_id = connector.config.business_id
+    if business is None:
+        return RefreshReport(business_id, RefreshStatus.REJECTED, errors=["source.json has no business profile"])
+    try:
+        raw = {"business": business, "offerings": connector.extract(connector.fetch())}
+        build_catalog(raw, store.read_owner_rules(business_id))
+    except (SourceUnavailableError, ExtractionError, ValidationError, OwnerRuleError) as exc:
+        return RefreshReport(business_id, RefreshStatus.REJECTED, errors=[str(exc)])
+    store.save_source_snapshot(business_id, raw)
+    return RefreshReport(
+        business_id, RefreshStatus.UPDATED, changes=[f"onboarded {len(raw['offerings'])} offering(s)"], saved=True
+    )
+
+
 def merge_snapshot(previous: dict[str, Any], offerings: list[dict[str, Any]]) -> dict[str, Any]:
     """Fresh offerings replace stored ones by id; offerings the connector does not produce are kept."""
     fresh = {o["id"]: o for o in offerings}

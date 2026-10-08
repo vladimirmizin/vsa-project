@@ -1,0 +1,41 @@
+{
+  "products": [
+    {
+      "id": 8812001,
+      "title": "Off-Ice Spinner Board",
+      "handle": "off-ice-spinner-board",
+      "body_html": "<p>Practice <strong>single, double and triple</strong> rotations off the ice. Curved base, non-slip top.</p>",
+      "vendor": "Edge Skate Shop",
+      "product_type": "Off-ice spinner",
+      "tags": ["spin training", "rotation", "edge::warehouse => east"],
+      "variants": [
+        {"id": 4401, "title": "Black", "price": "24.99", "compare_at_price": "29.99", "available": true, "requires_shipping": true},
+        {"id": 4402, "title": "Pink", "price": "24.99", "compare_at_price": null, "available": false, "requires_shipping": true}
+      ]
+    },
+    {
+      "id": 8812002,
+      "title": "Speed Jump Rope",
+      "handle": "speed-jump-rope",
+      "body_html": "<p>Adjustable steel-cable rope for footwork and plyometric drills.</p>",
+      "vendor": "Edge Skate Shop",
+      "product_type": "Jump rope",
+      "tags": "conditioning, plyometrics",
+      "variants": [
+        {"id": 4501, "title": "Default Title", "price": "14.00", "compare_at_price": "14.00", "available": true, "requires_shipping": true}
+      ]
+    },
+    {
+      "id": 8812003,
+      "title": "Blade Guard Set",
+      "handle": "blade-guard-set",
+      "body_html": "",
+      "vendor": "Edge Skate Shop",
+      "product_type": "Accessories",
+      "tags": [],
+      "variants": [
+        {"id": 4601, "title": "Default Title", "price": "18.50", "compare_at_price": null, "available": false, "requires_shipping": true}
+      ]
+    }
+  ]
+}
