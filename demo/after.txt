@@ -1,0 +1,26 @@
+# The same nine scenarios as the "before" baseline, in the same order.
+# A blank line starts a new conversation (a different customer).
+
+Does Victory Skating have an online Double Axel training program?
+
+Does VSA offer online training for Double Axel?
+
+I'm looking for an online Double Axel training program under $350 for six months. Does Victory Skating have anything?
+
+How much is the Victory Skating / VSA Double Axel Club and what is included?
+
+I want online training to improve my Double Axel. Can I join the VSA program?
+
+I'm free on November 6. Can I join the VSA Double Axel program around that time?
+
+Who coaches the VSA Double Axel Club, what level is it for, how many classes are there, and what time are the classes for me in London?
+
+I want to improve my Double Axel and I'm looking for an online program under $350.
+I'm free on November 6. Can I join around that time?
+I want to join.
+
+https://victoryskating.com/doubleaxel Tell me about this program: price, coach, schedule, number of classes and level.
+I'm free on November 6. Can I join around that time?
+What time would the classes be for me in Bangkok in November?
+Is it a one-time payment or a subscription? Does it renew, and can I get a refund?
+I want to join.

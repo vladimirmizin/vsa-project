@@ -138,6 +138,9 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, stream=sys.stderr)
+    if not args.verbose:
+        # rejected tool calls are already shown as [error]; the server's own warning would duplicate it
+        logging.getLogger("fastmcp").setLevel(logging.ERROR)
     sys.exit(asyncio.run(run(args)))
 
 
