@@ -4,29 +4,38 @@ An external layer that makes an existing business understandable **and purchasab
 
 The first business on it is the **Victory Skating / VSA 6-Month Double Axel Club**, read from its Tilda landing page. Nothing on the website was changed.
 
-```bash
-uv sync                                                   # install
-uv run pytest                                             # 315 tests, no network or API keys needed
-uv run vsa-chat --script demo/assignment.txt              # the assignment's queries in DeepSeek (needs DEEPSEEK_API_KEY in .env)
-```
+**Reports** (start here if you are not reading code):
 
-Other entry points: `vsa-mcp` (MCP server), `vsa-chat --no-tools` (same model without the layer), `vsa-refresh` (re-read the source), `vsa-export` (JSON-LD, llms.txt, feed), `vsa-report` (conversion funnel).
+- [1. Before check](docs/reports/VSA-1-Before-Check-DeepSeek.pdf): how the DeepSeek chat app handles the product today, nine scenarios with screenshots and a review of each.
+- [2. Solution and results](docs/reports/VSA-2-Solution-and-Results.pdf): the same questions through this layer, how it works, reuse for other platforms, and what changes for production.
+
+**Quick start** (details in [Running it](#running-it)):
+
+```bash
+uv sync                                          # install
+uv run pytest                                    # 315 tests, no network or API keys needed
+uv run vsa-chat                                  # chat with DeepSeek through the tools (needs DEEPSEEK_API_KEY in .env)
+```
 
 ---
 
 ## Before / after
 
-Same model (`deepseek-v4-pro`), same queries from the assignment. Full transcripts: [without tools](docs/transcripts/deepseek-api-without-tools.md), [with tools](docs/transcripts/deepseek-api-with-tools.md). Screenshots from the DeepSeek chat app are in [docs/before](docs/before).
+**Before:** the DeepSeek chat app with web search on, each question in a new conversation ([screenshots](docs/before)).
+**After:** the same DeepSeek model through its API with the four tools of the MCP server ([screenshots](docs/after), [transcripts](docs/transcripts/after)).
 
-| | Before | After |
+| Question | Before | After |
 |---|---|---|
-| Finds the product | Guesses. "VSA (Virtual Skating Academy)", a domain that does not exist (`victoryskatingacademy.com`) | Finds the 6-Month Double Axel Club for both "Victory Skating" and "VSA" |
-| Price | Invented: "$297–$349 one-time, lifetime access", "$39/month", "a $250/year donor club with apparel" | $299, list price $699, about $6.23 per class |
-| Billing terms | None | Billed every 6 months, renews automatically, non-refundable, cancel 48 h before renewal. Said **before** the link is shared |
-| Coach, schedule, classes, level | Generic guesses | Coach Marta, Saturday and Sunday 07:00 Los Angeles time, 45 min, 48 classes, Level 3, prerequisites |
-| "I'm free on November 6" | "I can't check the schedule" | "Yes: Saturday 7 and Sunday 8 November", in the customer's timezone |
-| Sales flow ("under $350" → "I want to join") | Recommends competitors (iCoachSkating and others), never mentions VSA | Recommends the right club, explains it, returns the real Stripe checkout |
-| Enrollment action | "I can't click join for you" | `https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M?client_reference_id=<session>` |
+| "Does Victory Skating have an online Double Axel training program?" | "Does not appear to offer a dedicated Double Axel training program"; VSA expanded as "Victory Sports Academy" | The 6-Month Double Axel Club, with coach, schedule, 48 classes, level, price and billing terms |
+| "...under $350 for six months. Does Victory Skating have anything?" | "Nothing under $350"; offers a single-Axel program at $699 (the crossed-out price) | "Exactly what you're looking for": $299 for 6 months |
+| "How much is the Double Axel Club and what is included?" | Price right; inclusions copied from another club; Zoom and a "$6 per class" option invented | $299 (list $699), every inclusion, billed every 6 months, auto-renewing, non-refundable |
+| "I'm free on November 6. Can I join?" | "Can't confirm"; suggests waiting for "the next session cycle" | "Yes": Saturday 7 and Sunday 8 November, then every weekend |
+| Coach, level, classes, London time | Coach "not named", classes "not specified" | Coach Marta, Level 3, 48 classes, 15:00 London time |
+| Sales flow: "under $350" > "November 6" > "I want to join" | A competitor's course ranked first; VSA drops out; "I want to join" leads to competitors | The right club, a November 7 start, and the real Stripe checkout with the email prefilled |
+| Given the product URL directly | Page cannot be opened; another club's level and coaches; no answer on dates, Bangkok time or billing | Same correct facts; 22:00 in Bangkok in November (the page says 21:00); checkout |
+| Enrollment or payment | Not possible in any of the nine scenarios | `https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M?client_reference_id=<conversation>` |
+
+A control run with the same API model and no tools is in [docs/transcripts](docs/transcripts): it invents prices ("$297 to $349 one-time", "a $250/year donor club") and recommends competitors.
 
 ## How the assistant gets the data
 
@@ -161,10 +170,53 @@ Over HTTP (`vsa-mcp --transport http`) the same documents are served at `/llms.t
 
 ## Assumptions and open questions
 
+- Not verified end to end: no real payment was made, so Stripe passing `client_reference_id` to the payment and the `checkout.session.completed` handling are tested with a sample payload only; the Shopify cart attribute was not checked on a live order.
+
 - The schedule is anchored in Los Angeles time (the academy is in LA). After both clock changes, an anchor in Europe gives the same times; they differ only in the week between the changes.
 - "Joinable any time" was stated for the Double Axel Club. Applying it to the Double Jumps and Triple Jumps clubs is marked as an assumption in `owner_rules.json`.
 - Billing terms were read from the Double Axel checkout only; the other clubs show "$299 for 6 months" without claiming a billing cycle.
 - The year of "Join us on October 10" is not on the page; 2026 is assumed (it is a Saturday).
+
+## Running it
+
+**Requirements:** Python 3.12+, [uv](https://docs.astral.sh/uv/getting-started/installation/) (`pip install uv` works too), and a DeepSeek API key for the chat (any OpenAI-compatible provider works, see `.env.example`). Tests, the MCP server and the exports need no key.
+
+```bash
+git clone https://github.com/vladimirmizin/vsa-project.git
+cd vsa-project
+uv sync
+cp .env.example .env        # then put your key after DEEPSEEK_API_KEY=
+```
+
+| What | Command |
+|---|---|
+| Run the tests and checks | `uv run pytest`, `uv run ruff check .`, `uv run mypy` |
+| Chat with the assistant (DeepSeek + tools); empty line to quit | `uv run vsa-chat` |
+| The same model without the tools | `uv run vsa-chat --no-tools` |
+| Replay the nine test scenarios and save the transcript | `uv run vsa-chat --script demo/after.txt --save` |
+| Conversion funnel of all conversations so far | `uv run vsa-report` |
+| MCP server for an MCP client (stdio) | `uv run vsa-mcp` |
+| MCP server over HTTP, with `/llms.txt`, `/feed.json`, `/jsonld/<id>` | `uv run vsa-mcp --transport http --port 8000` |
+| The second business (Shopify store) | `uv run vsa-mcp --business edge-skate-shop` |
+| Re-read the website (dry run, shows the diff) | `uv run vsa-refresh --dry-run` |
+| Write JSON-LD, llms.txt and the feed to `exports/` | `uv run vsa-export` |
+
+On Windows without `uv` on PATH, the same commands are available after `uv sync` as `.venv\Scripts\vsa-chat.exe`, `.venv\Scripts\vsa-report.exe` and so on.
+
+**Claude Desktop** (or any MCP client): Settings > Developer > Edit Config, then add the server and restart the app.
+
+```json
+{
+  "mcpServers": {
+    "vsa-commerce": {
+      "command": "uv",
+      "args": ["--directory", "/absolute/path/to/vsa-project", "run", "vsa-mcp"]
+    }
+  }
+}
+```
+
+Every conversation is logged to `var/events.jsonl`, which `vsa-report` reads.
 
 ## Layout
 
@@ -182,5 +234,5 @@ src/vsa_commerce/
 data/<business>/ catalog.json, owner_rules.json, source.json
 exports/         generated passive-channel artifacts
 demo/            the assignment's queries as a chat script
-docs/            transcripts and screenshots
+docs/            reports (PDF), screenshots and transcripts
 ```
