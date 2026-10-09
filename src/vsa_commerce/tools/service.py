@@ -70,8 +70,6 @@ class CommerceTools:
     def catalog(self) -> Catalog:
         return self.store.load(self.business_id)
 
-    # ---------------------------------------------------------------- tools
-
     def search_offerings(
         self, ctx: CallContext, query: str, max_price: float | str | None = None, currency: str = "USD"
     ) -> SearchResponse:
@@ -237,8 +235,6 @@ class CommerceTools:
         )
         return link
 
-    # -------------------------------------------------------------- helpers
-
     def _offering(self, offering_id: str) -> Offering:
         try:
             return self.catalog.get(offering_id)
@@ -299,9 +295,6 @@ class CommerceTools:
             offering_id,
             elapsed_ms,
         )
-
-
-# ------------------------------------------------------------------ formatting
 
 
 def _day(weekday: Weekday) -> str:
@@ -368,9 +361,6 @@ def _source_view(offering: Offering, now: datetime) -> SourceView:
         stale=now - fetched > STALE_AFTER,
         owner_rules=[f"{o.reason} ({o.authority})" for o in offering.provenance.overrides],
     )
-
-
-# --------------------------------------------------------------------- parsing
 
 
 def _parse_amount(value: float | str | None) -> Decimal | None:

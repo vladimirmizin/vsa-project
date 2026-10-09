@@ -6,8 +6,8 @@ The first business on it is the **Victory Skating / VSA 6-Month Double Axel Club
 
 **Reports** (start here if you are not reading code):
 
-- [1. Before check](docs/reports/VSA-1-Before-Check-DeepSeek.pdf): how the DeepSeek chat app handles the product today, nine scenarios with screenshots and a review of each.
-- [2. Solution and results](docs/reports/VSA-2-Solution-and-Results.pdf): the same questions through this layer, how it works, reuse for other platforms, and what changes for production.
+- [1. Before check](VSA-1-Before-Check-DeepSeek.pdf): how the DeepSeek chat app handles the product today, nine scenarios with screenshots and a review of each.
+- [2. Solution and results](VSA-2-Solution-and-Results.pdf): the same questions through this layer, how it works, reuse for other platforms, and what changes for production.
 
 **Quick start** (details in [Running it](#running-it)):
 
@@ -113,7 +113,7 @@ Adding a platform is one class with two methods ([base.py](src/vsa_commerce/conn
 class SourceConnector(ABC):
     platform: ClassVar[str]
 
-    def fetch(self) -> list[SourceDocument]: ...                          # I/O only
+    def fetch(self) -> list[SourceDocument]: ...  # I/O only
     def extract(self, documents: list[SourceDocument]) -> list[dict]: ...  # pure, tested on fixtures
 ```
 
@@ -234,5 +234,6 @@ src/vsa_commerce/
 data/<business>/ catalog.json, owner_rules.json, source.json
 exports/         generated passive-channel artifacts
 demo/            the assignment's queries as a chat script
-docs/            reports (PDF), screenshots and transcripts
+docs/            screenshots and transcripts
+VSA-*.pdf        the two reports
 ```

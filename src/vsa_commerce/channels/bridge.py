@@ -1,8 +1,4 @@
-"""Exposes an MCP server's tools to a function-calling model.
-
-Tool names, descriptions and schemas come from the server itself, so there is
-one definition for every channel, and any MCP server can be used this way.
-"""
+"""Exposes an MCP server's tools to a function-calling model; tool definitions come from the server itself."""
 
 from __future__ import annotations
 

@@ -9,11 +9,7 @@ from vsa_commerce.tracking.events import Event, EventType
 
 
 def payment_event_from_stripe(payload: dict[str, Any], *, business_id: str) -> Event | None:
-    """Map a ``checkout.session.completed`` webhook payload to an event.
-
-    Returns None for other event types and for payments that did not start in an AI session.
-    Signature verification belongs to the webhook endpoint, before this is called.
-    """
+    """None for other events and for payments not started in an AI session. Verify the signature first."""
     if payload.get("type") != "checkout.session.completed":
         return None
     session = payload.get("data", {}).get("object", {})

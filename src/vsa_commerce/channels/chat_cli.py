@@ -1,7 +1,4 @@
-"""``vsa-chat``: talk to a function-calling model (DeepSeek by default) that uses the MCP tools.
-
-Script files hold one user message per line; a blank line starts a new conversation.
-"""
+"""``vsa-chat``: DeepSeek (or another function-calling model) using the MCP tools."""
 
 from __future__ import annotations
 
@@ -28,6 +25,7 @@ ROOT = default_data_dir().parent
 
 
 def read_script(path: Path) -> list[list[str]]:
+    """One message per line; a blank line starts a new conversation."""
     conversations: list[list[str]] = [[]]
     for line in path.read_text(encoding="utf-8").splitlines():
         text = line.strip()
