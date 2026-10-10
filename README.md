@@ -21,21 +21,23 @@ uv run vsa-chat                                  # chat with DeepSeek through th
 
 ## Before / after
 
+Recorded on October 10, 2026, together with two screen recordings; each PDF report accompanies one of them.
 **Before:** the DeepSeek chat app with web search on, each question in a new conversation ([screenshots](docs/before)).
 **After:** the same DeepSeek model through its API with the four tools of the MCP server ([screenshots](docs/after), [transcripts](docs/transcripts/after)).
 
 | Question | Before | After |
 |---|---|---|
-| "Does Victory Skating have an online Double Axel training program?" | "Does not appear to offer a dedicated Double Axel training program"; VSA expanded as "Victory Sports Academy" | The 6-Month Double Axel Club, with coach, schedule, 48 classes, level, price and billing terms |
-| "...under $350 for six months. Does Victory Skating have anything?" | "Nothing under $350"; offers a single-Axel program at $699 (the crossed-out price) | "Exactly what you're looking for": $299 for 6 months |
-| "How much is the Double Axel Club and what is included?" | Price right; inclusions copied from another club; Zoom and a "$6 per class" option invented | $299 (list $699), every inclusion, billed every 6 months, auto-renewing, non-refundable |
-| "I'm free on November 6. Can I join?" | "Can't confirm"; suggests waiting for "the next session cycle" | "Yes": Saturday 7 and Sunday 8 November, then every weekend |
-| Coach, level, classes, London time | Coach "not named", classes "not specified" | Coach Marta, Level 3, 48 classes, 15:00 London time |
-| Sales flow: "under $350" > "November 6" > "I want to join" | A competitor's course ranked first; VSA drops out; "I want to join" leads to competitors | The right club, a November 7 start, and the real Stripe checkout with the email prefilled |
-| Given the product URL directly | Page cannot be opened; another club's level and coaches; no answer on dates, Bangkok time or billing | Same correct facts; 22:00 in Bangkok in November (the page says 21:00); checkout |
+| "Does Victory Skating have an online Double Axel training program?" | "No specific standalone program"; "Victory Sports Academy"; Zoom | The 6-Month Double Axel Club, with coach, schedule, 48 classes, level, price and billing terms |
+| "...under $350 for six months. Does Victory Skating have anything?" | The club is "invitation only" and "not available for direct purchase"; nothing under $350 | "Exactly what you're looking for": $299, "well under your $350 budget" |
+| "How much is the Double Axel Club and what is included?" | Price right; invented prerequisite; no renewal terms | $299 (list $699), every inclusion, billed every 6 months, auto-renewing, non-refundable |
+| "Can I join the VSA program?" | "Yes", priced at "$6 per session", an invented way to pay | Yes, $299 billed every 6 months, joinable any time |
+| "I'm free on November 6. Can I join?" | "Can't confirm"; look for a contact form | Asks the timezone; "yes": Saturday 7 November, 22:00 in Bangkok |
+| Coach, level, classes, London time | Coach "not listed", classes "not stated" | Coach Marta, Level 3, 48 classes, 15:00 London time |
+| Sales flow: "under $350" > "November 6" > "I want to join" | Walks the customer through buying the single-Axel club, next to competitors' checkout links | The right club, a November 7 start, and the real Stripe checkout |
+| Given the product URL directly | Reads the page, but gives 21:00 for Bangkok, cannot say whether the payment recurs, no link | 22:00 in Bangkok in November (the page says 21:00); "a subscription"; checkout with the email prefilled |
 | Enrollment or payment | Not possible in any of the nine scenarios | `https://buy.stripe.com/14AeVd6anbti69kcJ9dMM1M?client_reference_id=<conversation>` |
 
-A control run with the same API model and no tools is in [docs/transcripts](docs/transcripts): it invents prices ("$297 to $349 one-time", "a $250/year donor club") and recommends competitors.
+A control run with the same API model and no tools is in [docs/transcripts](docs/transcripts): it invents prices ("$297 to $349 one-time", "a $250/year donor club") and recommends competitors. Answers vary from run to run; an October 9 run of the app gave different mistakes with the same result.
 
 ## How the assistant gets the data
 

@@ -1,24 +1,28 @@
-# deepseek-v4-pro via https://api.deepseek.com, tools, 2026-10-09 13:18 UTC
+# deepseek-v4-pro via https://api.deepseek.com, tools, 2026-10-10 12:00 UTC
 
 **User:** I'm looking for an online Double Axel training program under $350 for six months. Does Victory Skating have anything?
 
 > tool: `search_offerings(query="online Double Axel training program under $350 for six months", max_price=350)`
 > tool: `get_offering_details(offering_id="double-axel-club")`
 
-**Assistant:** Yes — Victory Skating has exactly what you're looking for. 🎯
+**Assistant:** Yes — Victory Skating Academy has exactly what you're looking for:
 
-**6-Month Double Axel Club** — $299 USD for 6 months (under your $350 budget)
+**6-Month Double Axel Club** — $299.00 USD for 6 months (regular $699, so 57% off). That's well under your $350 budget.
 
-- **Format:** 100% online, live off-ice group classes
-- **Schedule:** Two live 45-minute classes each week — Saturdays and Sundays with Coach Marta
-- **Total:** 48 live classes over 6 months (works out to about $6.23 per class)
-- **Level:** Level 3 — for skaters who already land double jumps off-ice and want to master the Double Axel
-- **Focus:** approach and set-up, generating rotation and height, precise landings, plyometric/bounding drills, core strength, and double-revolution drills for muscle memory
-- **Included extras:** Free 4-day 2Axel Workbook, $5 off your next private class, and 2 free group-class passes for friends/family
-- **Equipment needed:** sneakers, jump rope, off-ice spinner, stable internet, and space to train
+Here's what it includes:
+- **Level 3** online, live off-ice group training for skaters who already land double jumps off-ice and want to master the Double Axel.
+- **48 live 45-minute classes** with Coach Marta, every **Saturday and Sunday** over 6 months.
+- Free 4-day 2Axel Workbook, $5 discount on your next private class, and 2 free group-class passes for friends or relatives.
+- Covers approach/set-up, rotation and height, precise landings, plyometric/bounding drills, core strength, and double-revolution drills for muscle memory.
 
-You can join at any time and start at the next scheduled session — the "October 10" date on the page is just one start of the recurring program, not a deadline.
+**Billing terms:** $299 billed every 6 months, renews automatically until cancelled, and it is non-refundable. You can cancel at least 48 hours before the next payment date via the Subscriptions link in the confirmation email.
 
-Would you like me to check availability for a specific start date or timezone, or would you like to go ahead and enroll?
+**Prerequisites:** Proficiency in double jumps off-ice. If you're not quite there yet, they also have the Level 2 **6-Month Double Jumps Club** at the same $299 price.
+
+A couple of helpful notes:
+- You need sneakers, a jump rope, and an off-ice spinner.
+- Enrollment is open continuously — you can join any time and start at the next session.
+
+Would you like to check available start dates (if so, what's your timezone?), or go ahead and enroll?
 
 ---

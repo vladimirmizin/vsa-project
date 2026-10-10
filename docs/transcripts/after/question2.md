@@ -1,22 +1,23 @@
-# deepseek-v4-pro via https://api.deepseek.com, tools, 2026-10-09 13:17 UTC
+# deepseek-v4-pro via https://api.deepseek.com, tools, 2026-10-10 11:59 UTC
 
 **User:** Does VSA offer online training for Double Axel?
 
 > tool: `search_offerings(query="online training for Double Axel")`
 > tool: `get_offering_details(offering_id="double-axel-club")`
 
-**Assistant:** Yes — VSA offers a dedicated online program for the Double Axel:
+**Assistant:** Yes, VSA does offer online training specifically for the Double Axel. Here's the full picture:
 
-**6-Month Double Axel Club** (Level 3, online off-ice group training)
-- **What it is:** Live online group classes focused entirely on mastering the Double Axel off-ice — approach and set-up, rotation/height, precise landings, plyometric drills, core strength, and double-revolution drills for muscle memory.
-- **Coach:** Coach Marta (international figure skating coach, trained in Poland and Finland).
-- **Schedule:** Two live 45-minute classes every Saturday and Sunday — 48 classes over 6 months.
-- **Prerequisite:** You should already be proficient with double jumps off-ice.
-- **Price:** $299 (regularly $699) every 6 months, renewing automatically until cancelled. Non-refundable; cancel at least 48 hours before the next payment date.
-- **Includes:** 48 live classes, a free 4-day 2Axel Workbook, a $5 discount on your next private class, and 2 free group-class passes for friends or relatives.
+**6-Month Double Axel Club** — Level 3 online off-ice group training
+- **Who it's for:** Skaters who already land double jumps off-ice and want to master the Double Axel.
+- **Classes:** Two live 45-minute group classes with Coach Marta every Saturday and Sunday (48 classes over 6 months).
+- **What you work on:** approach and set-up, rotation and height, precise landings, plyometric/bounding drills, core stability, off-ice spins, and double-revolution drills.
+- **Included:** Free 4-day 2Axel Workbook, $5 off your next private class, and 2 free group-class passes for friends/family.
+- **Equipment needed:** Sneakers, jump rope, off-ice spinner, stable internet, and some space to train.
 
-It's open continuously, so you can join any time and start at the next session.
+**Price:** $299 USD (regularly $699, a 57% discount), billed every 6 months and renewing automatically until cancelled. It is non-refundable, and you can cancel at least 48 hours before the next payment date via the Subscriptions link in your confirmation email.
 
-Want me to check availability for a specific start date or timezone, or would you like help enrolling?
+Note: The page mentions "Join us on October 10," but this program runs every weekend and you can join at any time, starting at the next scheduled session.
+
+Would you like me to check availability for a specific start date, or help you enroll? If you have a timezone you'd like class times shown in, let me know.
 
 ---
